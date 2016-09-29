@@ -22,3 +22,6 @@ background-color: #3F8ACD;
 .text-color-website-list{
     color: #3F8ACD;
 }
+#file-upload{
+    display: none;
+}
