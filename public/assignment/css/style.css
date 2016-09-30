@@ -25,3 +25,6 @@ background-color: #3F8ACD;
 #file-upload{
     display: none;
 }
+.padding-navbar{
+    padding-top: 60px;
+}
