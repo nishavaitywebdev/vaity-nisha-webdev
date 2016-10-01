@@ -28,3 +28,13 @@ background-color: #3F8ACD;
 .padding-navbar{
     padding-top: 60px;
 }
+.glyph-margin{
+    margin-right: 30px;
+}
+div.vertical-line{
+    border-left: 1px solid #808080;
+    height: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1px;
+}

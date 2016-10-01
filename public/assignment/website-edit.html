@@ -10,8 +10,8 @@
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <p class="navbar-text">
+        <div class="navbar-header col-md-12">
+            <div class="hidden-xs col-md-4"><p class="navbar-text">
                 <span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></p>
             <a class="navbar-brand" href="#">
@@ -19,15 +19,27 @@
             </a>
             <p class="navbar-text">
                 <a href="#" class="navbar-link">
-              <span class="glyphicon glyphicon-plus pull-right white-glyphicon">
+              <span class="glyphicon glyphicon-plus glyph-margin white-glyphicon">
               </span>
                 </a>
             </p>
+            </div>
+            <div class="col-md-8">
+                <a class="navbar-brand" href="#">
+                    Edit Website
+                </a>
+                <p class="navbar-text">
+                    <a href="#" class="navbar-link">
+                      <span class="glyphicon glyphicon-ok glyph-margin white-glyphicon">
+                      </span>
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
 </nav>
-<div class=".hidden-tablet">
-    <div class="col-md-4 padding-navbar">
+<div>
+    <div class="col-md-4 hidden-xs padding-navbar">
         <div class="div-website-list text-color-website-list">
             <div>
                 <a href="#" class="navbar-link">
@@ -58,13 +70,17 @@
     <div class="col-md-8 padding-navbar">
         <form>
             <div class="form-group">
-                <label for="widget-name">Name</label>
+                <label for="widget-name">Website Name</label>
                 <input type="text" class="form-control" id="widget-name" placeholder="">
             </div>
             <div class="form-group">
-                <label for="widget-text">Description</label>
-                <input type="text" class="form-control" id="widget-text" placeholder="">
-            </div></form>
+                <label for="widget-text">Website Description</label>
+                <input type="text" class="form-control" id="widget-text" placeholder="" size="" >
+            </div>
+            <div class="form-group"><a class="btn btn-danger btn-block"
+                                       href="#">Delete</a>
+            </div>
+        </form>
     </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
