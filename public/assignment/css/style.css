@@ -17,6 +17,7 @@ a:hover {
 }
 .white-glyphicon{
     color:white;
+    padding: 20px;
 }
 .div-website-list{
     position: relative;
@@ -29,7 +30,7 @@ a:hover {
     display: none;
 }
 .padding-navbar{
-    padding-top: 50px;
+    padding-top: 30px;
     padding-bottom: 70px;
 }
 .glyph-margin{
@@ -42,7 +43,13 @@ a:hover {
 img {
     width: 100%;
 }
-
+.img-upload-button{
+    position: relative;
+    top: 34px;
+    left: -51px;
+    height: 33px;
+    width:100px;
+}
 .wrapper .glyphicon {
     position: absolute;
     top: 20px;
@@ -69,6 +76,8 @@ img {
     allowfullscreen:none;
 }
 .navbar-text-decor{
-    float:left;
+    position: absolute;
+    color: white;
     font-size: 18px;
+    padding: 15px;
 }
