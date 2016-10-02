@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
     <title>Title</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
@@ -9,25 +10,27 @@
 <body>
 
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
+    <div class="container-fluid col-md-12">
+        <div class="navbar-header col-md-6">
             <p class="navbar-text">
                 <a href="widget-list.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></a></p>
             <a class="navbar-brand" href="#">
                 Widget Edit
             </a>
-            <p class="navbar-text">
+        </div>
+        <div class="navbar-text pull-right col-md-6">
+            <p>
                 <a href="widget-list.html" class="navbar-link">
-              <span class="glyphicon glyphicon-ok pull-right white-glyphicon">
-              </span>
+                  <span class="glyphicon glyphicon-ok white-glyphicon">
+                  </span>
                 </a>
             </p>
         </div>
     </div>
 </nav>
 
-<div class="container">
+<div class="container padding-navbar">
     <div class="div-website-list">
         <form>
             <div class="form-group">

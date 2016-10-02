@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
     <title>Title</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
@@ -10,24 +11,39 @@
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <p class="navbar-text">
-                <a href="page-list.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
+        <div class="navbar-header col-md-12">
+            <div class="hidden-xs col-md-4"><p class="navbar-text">
+                <a href="website-list.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></a></p>
-            <a class="navbar-brand" href="#">
-                Edit Page
-            </a>
-            <p class="navbar-text">
-                <a href="page-list.html" class="navbar-link">
-              <span class="glyphicon glyphicon-ok pull-right white-glyphicon">
-              </span>
+                <a class="navbar-brand" href="#">
+                    Pages
                 </a>
-            </p>
+                <p class="navbar-text">
+                    <a href="website-new.html" class="navbar-link">
+              <span class="glyphicon glyphicon-plus glyph-margin white-glyphicon">
+              </span>
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-8">
+                <p class="navbar-text hidden-lg">
+                    <a href="website-list.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
+              </span></a></p>
+                <a class="navbar-brand" href="#">
+                    Edit Page
+                </a>
+                <p class="navbar-text">
+                    <a href="website-list.html" class="navbar-link">
+                      <span class="glyphicon glyphicon-ok glyph-margin white-glyphicon">
+                      </span>
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
 </nav>
 
-<div class="container">
+<div>
     <div class="col-md-4 hidden-xs padding-navbar verticalLine">
         <div class="div-website-list text-color-website-list">
             <div>
