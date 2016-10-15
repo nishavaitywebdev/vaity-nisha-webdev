@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
-    <title>Title</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
-            <a href="../page/page-list.view.client.html">
+            <a href="../views/page/page-list.view.client.html">
                 <span class="glyphicon glyphicon-chevron-left white-glyphicon ">
                 </span>
             </a>
@@ -78,6 +67,14 @@
                </span></a></div>
             <iframe src="https://www.youtube.com/embed/6XGdeSKL6eE" class="iframe-div"></iframe>
         </div>
+        <div class="widget-container" ng-repeat="widget in model.widgets">
+            <div class="widget-tag"><span class="glyphicon glyphicon-align-justify pull-right">
+               </span>
+                <a href="widget-youtube.view.client.html" class="navbar-link">
+               <span class="glyphicon glyphicon-cog pull-right">
+               </span></a></div>
+            <iframe src="https://www.youtube.com/embed/6XGdeSKL6eE" class="iframe-div"></iframe>
+        </div>
     </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
@@ -85,11 +82,9 @@
         <div class="row">
             <span class="glyphicon glyphicon-play white-glyphicon pull-left"></span>
                 <span class="glyphicon glyphicon-eye-open white-glyphicon pull-left"></span>
-                <a href="../user/profile.view.client.html">
+                <a href="../views/user/profile.view.client.html">
                     <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
                 </a>
         </div>
     </div>
 </nav>
-</body>
-</html>

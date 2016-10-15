@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
-    <title>Title</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-</head>
-<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
-            <a class="" href="../user/profile.view.client.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
+            <a class="" href="../views/user/profile.view.client.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></a>
             <a class=" navbar-text-decor" href="#">
                 Websites
@@ -29,36 +19,40 @@
            <a href="website-edit.view.client.html" class="navbar-link">
                <span class="glyphicon glyphicon-cog pull-right">
                </span></a>
-           <a href="../page/page-list.view.client.html"><p>Address Book App</p></a>
+           <a href="../views/page/page-list.view.client.html"><p>Address Book App</p></a>
        </div>
        <div>
            <a href="website-edit.view.client.html" class="navbar-link">
            <span class="glyphicon glyphicon-cog pull-right">
           </span></a>
-           <a href="../page/page-list.view.client.html"><p>Blogger</p></a>
+           <a href="../views/page/page-list.view.client.html"><p>Blogger</p></a>
        </div>
        <div>
            <a href="website-edit.view.client.html" class="navbar-link">
            <span class="glyphicon glyphicon-cog pull-right">
           </span></a>
-           <a href="../page/page-list.view.client.html"><p>Blogging App</p></a>
+           <a href="../views/page/page-list.view.client.html"><p>Blogging App</p></a>
        </div>
        <div>
            <a href="website-edit.view.client.html" class="navbar-link">
            <span class="glyphicon glyphicon-cog pull-right">
            </span></a>
-           <a href="../page/page-list.view.client.html"><p>Script Testing App</p></a>
+           <a href="../views/page/page-list.view.client.html"><p>Script Testing App</p></a>
+       </div>
+       <div ng-repeat="website in model.websites">
+           <a href="website-edit.view.client.html" class="navbar-link">
+           <span class="glyphicon glyphicon-cog pull-right">
+           </span></a>
+           <a href="../views/page/page-list.view.client.html"><p>{{website.name}}</p></a>
        </div>
    </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="row">
-            <a href="../user/profile.view.client.html">
+            <a href="../views/user/profile.view.client.html">
                 <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
             </a>
         </div>
     </div>
 </nav>
-</body>
-</html>
