@@ -22,13 +22,18 @@
         function init() {
             WebsiteService.createWebsite(website);
         }
+        init();
     }
     function EditWebsiteController($routeParams, WebsiteService) {
         var vm = this;
-        var website;
-        var websiteId;
-        function init() {
-            WebsiteService.updateWebsite(websiteId,website);
+        vm.websiteId = $routeProvider.websiteId;
+        vm.updateWebsite = updateWebsite;
+        vm.deleteWebsite = deleteWebsite;
+        function updateWebsite(website) {
+            WebsiteService.updateWebsite(vm.websiteId, website);
+        }
+        function deleteWebsite() {
+            WebsiteService.deleteWebsite(vm.websiteId);
         }
     }
 })();

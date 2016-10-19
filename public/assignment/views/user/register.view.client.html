@@ -12,8 +12,16 @@
                ng-model="model.user.veryPassword"
                class="form-control"
                placeholder="very password"/>
-        <a class="btn btn-primary btn-block"
-           href="profile.view.client.html">Register</a>
+        <input ng-model="model.user.email" type="email"
+               class="form-control"
+               placeholder="email"/>
+        <input ng-model="model.user.firstName" type="text"
+               class="form-control"
+               placeholder="First Name"/>
+        <input ng-model="model.user.lastName" type="text"
+               class="form-control"
+               placeholder="Last Name"/>
+        <a class="btn btn-primary btn-block" ng-click="model.register(model.user)">Register</a>
         <a class="btn btn-danger  btn-block"
-           href="login.view.client.html">Cancel</a>
+           href="#/login">Cancel</a>
 </div>

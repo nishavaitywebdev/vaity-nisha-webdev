@@ -1,12 +1,12 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid row">
         <div class="col-xs-4 hidden-xs">
-                <a class="" href="website-list.view.client.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
+                <a class="" href="#/user/{{model.userId}}/website"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></a>
-                <a class=" navbar-text-decor" href="#">
+                <a class=" navbar-text-decor" href="#/user/{{model.userId}}/website">
                     Websites
                 </a>
-                <a href="website-new.view.client.html" class="">
+                <a href="#/user/{{model.userId}}/website/new" class="">
               <span class="glyphicon glyphicon-plus white-glyphicon pull-right">
               </span>
                 </a>
@@ -17,7 +17,7 @@
                 <a class="navbar-text-decor" href="#">
                     Edit Website
                 </a>
-                <a href="website-list.view.client.html" class="">
+                <a ng-click="model.updateWebsite(website)" href="#/user/{{model.userId}}/website" class="">
               <span class="glyphicon glyphicon-ok white-glyphicon pull-right">
               </span>
                 </a>
@@ -28,30 +28,12 @@
 <div class="container-fluid row padding-navbar">
     <div class="col-xs-4 hidden-xs padding-navbar verticalLine">
         <div class="div-website-list text-color-website-list">
-            <div>
-                <a href="website-edit.view.client.html" class="navbar-link">
-               <span class="glyphicon glyphicon-cog pull-right">
-               </span></a>
-                <a href="../views/page/page-list.view.client.html"><p>Address Book App</p></a>
-            </div>
-            <div>
-                <a href="website-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-          </span></a>
-                <a href="../views/page/page-list.view.client.html"><p>Blogger</p></a>
-            </div>
-            <div>
-                <a href="website-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-          </span></a>
-                <a href="../views/page/page-list.view.client.html"><p>Blogging App</p></a>
-            </div>
-            <div>
-                <a href="website-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-           </span></a>
-                <a href="../views/page/page-list.view.client.html"><p>Script Testing App</p></a>
-            </div>
+            <ul class="list-group">
+                <li ng-repeat="website in model.websites" class="">
+                    <p class="pull-right"><a ng-href="#/user/{{model.userId}}/website/{{website._id}}" class="navbar-link"><span class="glyphicon glyphicon-cog pull-right"></span></a></p>
+                    <p><a href="#/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a></p>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="col-xs-12 col-sm-8 padding-navbar">
@@ -64,8 +46,7 @@
                 <label for="website-text">Website Description</label>
                 <textarea type="text" ng-model="model.website.text" class="form-control" id="website-text" placeholder="Description" size="3" ></textarea>
             </div>
-            <div class="form-group"><a class="btn btn-danger btn-block"
-                                       href="website-list.view.client.html">Delete</a>
+            <div class="form-group"><a ng-click="model.deleteWebsite(model.websiteId)" class="btn btn-danger btn-block">Delete</a>
             </div>
         </form>
     </div>
@@ -73,7 +54,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="row">
-            <a href="../views/user/profile.view.client.html">
+            <a href="#/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
             </a>
         </div>

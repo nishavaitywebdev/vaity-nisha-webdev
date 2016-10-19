@@ -1,23 +1,23 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid row">
         <div class="col-xs-4 hidden-xs">
-                <a class="" href="page-list.view.client.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
+                <a class="" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></a>
-                <a class=" navbar-text-decor" href="#">
+                <a class=" navbar-text-decor" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">
                     Pages
                 </a>
-                <a href="page-new.view.client.html" class="">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new" class="">
               <span class="glyphicon glyphicon-plus white-glyphicon pull-right">
               </span>
                 </a>
             </div>
             <div class="col-xs-12 col-sm-8">
-                <a class="hidden-lg hidden-sm" href="page-list.view.client.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
+                <a class="hidden-lg hidden-sm" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></a>
-                <a class="navbar-text-decor" href="#">
+                <a class="navbar-text-decor" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}">
                     Edit Page
                 </a>
-                <a href="page-list.view.client.html" class="">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="">
               <span class="glyphicon glyphicon-ok white-glyphicon pull-right">
               </span>
                 </a>
@@ -28,36 +28,13 @@
 <div class="container-fluid row">
     <div class="col-xs-4 hidden-xs padding-navbar verticalLine">
         <div class="div-website-list text-color-website-list">
-            <div>
-                <a href="page-edit.view.client.html" class="navbar-link">
-               <span class="glyphicon glyphicon-cog pull-right">
-               </span></a>
-                <a href="../widget/widget-list.view.client.html"><p>Blog Posts</p></a>
-            </div>
-            <div>
-                <a href="page-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-          </span></a>
-                <a href="../widget/widget-list.view.client.html"><p>Blog</p></a>
-            </div>
-            <div>
-                <a href="page-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-          </span></a>
-                <a href="../widget/widget-list.view.client.html"><p>Home</p></a>
-            </div>
-            <div>
-                <a href="page-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-           </span></a>
-                <a href="../widget/widget-list.view.client.html"><p>About</p></a>
-            </div>
-            <div>
-                <a href="page-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-           </span></a>
-                <a href="../widget/widget-list.view.client.html"><p>Contact Us</p></a>
-            </div>
+            <ul class="list-group">
+                <li ng-repeat="page in model.pages" class="list-group-item">
+                    <p class="pull-right"><a ng-href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}" class="navbar-link">
+                        <span class="glyphicon glyphicon-cog pull-right"></span></a></p>
+                    <p><a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">{{page.name}}</a></p>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="col-xs-12 col-sm-8 padding-navbar div-website-list">
@@ -70,8 +47,11 @@
                 <label for="newpage-title">Title</label>
                 <input type="text" ng-model="model.page.title" class="form-control" id="newpage-title" placeholder="Title">
             </div>
-            <div class="form-group"><a class="btn btn-danger btn-block"
-               href="page-list.view.client.html">Delete</a>
+            <div class="form-group">
+                <a class="btn btn-primary btn-block"
+                   ng-click = "model.updatePage(model.pageId,{'name':model.page.name,'description':model.page.description})">Update</a>
+                <a class="btn btn-danger btn-block"
+                   ng-click = "model.deletePage(model.pageId)">Delete</a>
             </div>
         </form>
     </div>
@@ -79,7 +59,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="row">
-            <a href="../user/profile.view.client.html">
+            <a href="#/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
             </a>
         </div>

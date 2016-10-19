@@ -1,12 +1,12 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
-            <a class="" href="../views/user/profile.view.client.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
+            <a class="" href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></a>
-            <a class=" navbar-text-decor" href="#">
+            <a class=" navbar-text-decor" href="#/user/{{model.userId}}/website">
                 Websites
             </a>
-            <a href="website-new.view.client.html" class="">
+            <a href="#/user/{{model.userId}}/website/new" class="">
               <span class="glyphicon glyphicon-plus white-glyphicon pull-right">
               </span>
             </a>
@@ -21,36 +21,18 @@
                </span></a>
            <a href="../views/page/page-list.view.client.html"><p>Address Book App</p></a>
        </div>
-       <div>
-           <a href="website-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-          </span></a>
-           <a href="../views/page/page-list.view.client.html"><p>Blogger</p></a>
-       </div>
-       <div>
-           <a href="website-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-          </span></a>
-           <a href="../views/page/page-list.view.client.html"><p>Blogging App</p></a>
-       </div>
-       <div>
-           <a href="website-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-           </span></a>
-           <a href="../views/page/page-list.view.client.html"><p>Script Testing App</p></a>
-       </div>
-       <div ng-repeat="website in model.websites">
-           <a href="website-edit.view.client.html" class="navbar-link">
-           <span class="glyphicon glyphicon-cog pull-right">
-           </span></a>
-           <a href="../views/page/page-list.view.client.html"><p>{{website.name}}</p></a>
-       </div>
+        <ul class="list-group">
+            <li ng-repeat="website in model.websites" class="">
+                <p class="pull-right"><a ng-href="#/user/{{model.userId}}/website/{{website._id}}" class="navbar-link"><span class="glyphicon glyphicon-cog pull-right"></span></a></p>
+                <p><a href="#/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a></p>
+            </li>
+        </ul>
    </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="row">
-            <a href="../views/user/profile.view.client.html">
+            <a href="#/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
             </a>
         </div>

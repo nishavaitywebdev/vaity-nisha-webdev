@@ -3,7 +3,7 @@
  */
 (function () {
     angular
-        .module ("WebAppMakerApp")
+        .module ("WebAppMaker")
         .factory("WebsiteService", WebsiteService)
     function WebsiteService() {
 
@@ -26,9 +26,33 @@
         };
         return api;
         function createWebsite(website) {  }
-        function findWebsitesByUser(userId) {  }
+        function findWebsitesByUser(userId) {
+
+            var websitesOfUser=[];
+            websites.forEach(function(website){
+                if(website.developerId == userId){
+                    websitesOfUser.add(website);
+                }
+            });
+            return websitesOfUser;
+
+        }
         function findWebsiteById(websiteId) {  }
-        function updateWebsite(websiteId, website) {  }
-        function deleteWebsite(websiteId) {  }
+        function updateWebsite(websiteId, websiteUpdated) {
+            websites.forEach(function(website){
+                if(website._id == websiteId){
+                    websites.remove(website);
+                    websites.add(websiteUpdated);
+                }
+            });
+        }
+        function deleteWebsite(websiteId) {
+            websites.forEach(function(website){
+                if(website._id == websiteId){
+                    websites.remove(website);
+                }
+            });
+
+        }
     }
 })();

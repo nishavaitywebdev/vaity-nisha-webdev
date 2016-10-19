@@ -4,7 +4,7 @@
 
 (function () {
     angular
-        .module ("WebAppMakerApp")
+        .module ("WebAppMaker")
         .factory("UserService", UserService)
     function UserService(){
 
@@ -24,11 +24,47 @@
 
     };
         return api;
-        function createUser(user) {  }
-        function findUserById(userId) {  }
-        function findUserByUsername(username) {  }
-        function findUserByCredentials(username, password) {  }
-        function updateUser(userId, user) {  }
-        function deleteUser(userId) {  }
+        function createUser(user) {
+            users.add(user);
+        }
+        function findUserById(userId) {
+
+            users.forEach(function(user){
+                if(user._id == userId){
+                    return user;
+                }
+            });
+
+        }
+        function findUserByUsername(username) {
+
+            users.forEach(function(user){
+                if(user.username == username){
+                    return user;
+                }
+            });
+        }
+        function findUserByCredentials(username, password) {
+            users.forEach(function(user){
+                if(user.username == username && user.password == password){
+                    return user;
+                }
+            });
+        }
+        function updateUser(userId, userUpdated) {
+            users.forEach(function(user){
+                if(user._id == userId){
+                    users.remove(user);
+                    users.add(userUpdated);
+                }
+            });
+        }
+        function deleteUser(userId) {
+            users.forEach(function(user){
+                if(user._id == userId){
+                    users.remove(user);
+                }
+            });
+        }
 }
 })();

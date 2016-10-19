@@ -3,7 +3,7 @@
  */
 (function () {
     angular
-        .module ("WebAppMakerApp")
+        .module ("WebAppMaker")
         .factory("WidgetService", WidgetService)
     function WidgetService() {
 
@@ -21,7 +21,7 @@
 
         var api = {
             "createWidget"   : "createWidget",
-            "findWidgetsByPageId" : "findWidgetsByPageId",
+            findWidgetsByPageId : findWidgetsByPageId,
             "findWidgetById" : "findWidgetById",
             "updateWidget" : "updateWidget",
             "deleteWidget" : "deleteWidget"
@@ -29,9 +29,26 @@
         };
         return api;
         function createWidget(pageId, widget) {  }
-        function findWidgetsByPageId(pageId) {  }
-        function findWidgetById(widgetId) {  }
+
+        function findWidgetsByPageId(pageId) {
+            var widgetsOfPage=[];
+            widgets.forEach(function(widget){
+                if(widget.pageId == pageId){
+                    widgetsOfPage.add(widget);
+                }
+            });
+            return widgetsOfPage;
+        }
+
+        function findWidgetById(widgetId) {
+            widgets.forEach(function(widget){
+                if(widget._id == widgetId){
+                    return widget;
+                }
+            });
+        }
         function updateWidget(widgetId, widget) {  }
         function deleteWidget(widgetId) {  }
+
     }
 })();

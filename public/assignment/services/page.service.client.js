@@ -3,7 +3,7 @@
  */
 (function () {
     angular
-        .module ("WebAppMakerApp")
+        .module ("WebAppMaker")
         .factory("PageService", PageService)
     function PageService() {
 
@@ -23,8 +23,24 @@
         };
         return api;
         function createPage(websiteId, page) {  }
-        function findPageByWebsiteId(websiteId) {  }
-        function findPageById(pageId) {  }
+        function findPageByWebsiteId(websiteId) {
+
+            var pagesOfWebsite=[];
+            pages.forEach(function(page){
+                if(page.websiteId == websiteId){
+                    pagesOfWebsite.add(page);
+                }
+            });
+            return pagesOfWebsite;
+
+        }
+        function findPageById(pageId) {
+            pages.forEach(function(page){
+                if(page._id == pageId){
+                    return page;
+                }
+            });
+        }
         function updatePage(pageId, page) {  }
         function deletePage(pageId) {  }
     }

@@ -1,0 +1,39 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="row">
+            <a href="../views/page/page-list.view.client.html">
+                <span class="glyphicon glyphicon-chevron-left white-glyphicon ">
+                </span>
+            </a>
+            <a  href="#">
+                <span class="navbar-text-decor">Widgets</span>
+            </a>
+            <a href="widget-chooser.view.client.html" class="">
+                      <span class="glyphicon glyphicon-plus white-glyphicon pull-right">
+                      </span>
+            </a>
+        </div>
+    </div>
+</nav>
+<div ng-switch="widget.widgetType">
+    <div ng-switch-when="HEADING">
+        <ng-include src="'widget-heading.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="IMAGE">
+        <ng-include src="'widget-image.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="YOUTUBE">
+        <ng-include src="'widget-youtube.view.client.html'"></ng-include>
+    </div>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <span class="glyphicon glyphicon-play white-glyphicon pull-left"></span>
+            <span class="glyphicon glyphicon-eye-open white-glyphicon pull-left"></span>
+            <a href="../views/user/profile.view.client.html">
+                <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
+            </a>
+        </div>
+    </div>
+</nav>
