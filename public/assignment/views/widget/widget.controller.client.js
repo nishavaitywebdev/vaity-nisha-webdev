@@ -41,10 +41,13 @@
         vm.websiteId = $routeParams.wid;
         vm.pageId = $routeParams.pid;
         vm.widgetId = $routeParams.wgid;
-        vm.createWidget = createWidget;
-        function createWidget(widget) {
-            WidgetService.createWidget(widget);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+        vm.createNewWidget = createNewWidget;
+        function createNewWidget(widget) {
+            var id = (Math.floor(100000 + Math.random() * 900000)).toString();
+            id = id.substring(-2);
+            widget._id = id.toString();
+            WidgetService.createWidget(vm.pageId,widget);
+            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
         }
         function init() {
             //console.log(vm.pageId)
@@ -58,10 +61,10 @@
         vm.websiteId = $routeParams.wid;
         vm.pageId = $routeParams.pid;
         vm.widgetId = $routeParams.wgid;
-        console.log(vm.pageId);
+        console.log(vm.websiteId);
         function init(){
             vm.widget = WidgetService.findWidgetById(vm.widgetId);
-            console.log(vm.widget);
+            //console.log(vm.widget);
 
         }
         init();

@@ -37,8 +37,8 @@
         }
         function ProfileController($routeParams, UserService,$location) {
             var vm = this;
-
             vm.userId = $routeParams["uid"];
+
             //console.log(vm.userId);
             function init() {
                 vm.user = UserService.findUserById(vm.userId);
@@ -54,7 +54,7 @@
             }
 
             function deleteUser(userId){
-                UserService.deleteUser(userId);
+                console.log(UserService.deleteUser(vm.userId));
                 $location.url("/login");
             }
         }

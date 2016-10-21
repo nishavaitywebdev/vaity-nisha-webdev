@@ -12,10 +12,17 @@
 </nav>
 
 <div class="container-fluid padding-navbar">
-    <div class="div-website-list text-color-website-list">
-        <div ng-repeat="widget in model.widgets">
-            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
-                {{widget.widgetType}}</a>
+    <div class="container-fluid padding-navbar">
+        <div class="div-website-list text-color-website-list">
+            <div>
+                <a ng-click="model.createNewWidget({'widgetType' : 'HEADER'})"><p>Header</p></a>
+            </div>
+            <div>
+                <a ng-click="model.createNewWidget({'widgetType' : 'IMAGE'})"><p>Image</p></a>
+            </div>
+            <div>
+                <a ng-click="model.createNewWidget({'widgetType' : 'YOUTUBE'})"><p>YouTube</p></a>
+            </div>
         </div>
     </div>
 </div>

@@ -20,13 +20,17 @@
             findUserByUsername : findUserByUsername,
             findUserByCredentials : findUserByCredentials,
             updateUser : updateUser,
-            deleteUser : deleteUser
+            deleteUser : deleteUser,
+            getAllUsers : getAllUsers
 
     };
         return api;
         function createUser(user) {
             users.push(user);
-            console.log(users);
+            //console.log(users);
+        }
+        function getAllUsers() {
+            return users;
         }
         function findUserById(userId) {
             var user;
@@ -70,10 +74,12 @@
         function deleteUser(userId) {
             for( var u in users){
                 if(users[u]._id === userId.toString()){
-                    users.splice(users.indexOf(u), 1);
+                    users.splice(u, 1);
+                    console.log(users)
                     break;
                 }
             }
+
         }
 }
 })();

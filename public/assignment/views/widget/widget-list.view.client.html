@@ -42,7 +42,7 @@
                 <iframe width="{{widget.width}}" height="315" ng-src="{{model.checkSafeYoutubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
             </div>
             <div ng-switch-when="IMAGE">
-                <img ng-src="{{model.checkSafeImageUrl(widget.url)}}" class="img-responsive" width="100%" height="100%">
+                <img ng-src="{{model.checkSafeImageUrl(widget.url)}}" class="img-responsive" width="{{widget.width}}" height="315">
             </div>
             <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)">
                 {{widget.text}}

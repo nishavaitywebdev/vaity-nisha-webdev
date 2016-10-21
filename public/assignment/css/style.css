@@ -40,9 +40,6 @@ a:hover {
     border-right: thin solid dimgrey;
     height: 1000px;
 }
-img {
-    width: 100%;
-}
 .img-upload-button{
     position: relative;
     top: 34px;
