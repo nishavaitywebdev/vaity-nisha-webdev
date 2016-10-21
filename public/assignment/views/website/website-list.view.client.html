@@ -15,18 +15,12 @@
 </nav>
 <div class="container-fluid padding-navbar">
     <div class="div-website-list text-color-website-list">
-       <div>
-           <a href="website-edit.view.client.html" class="navbar-link">
-               <span class="glyphicon glyphicon-cog pull-right">
-               </span></a>
-           <a href="../views/page/page-list.view.client.html"><p>Address Book App</p></a>
-       </div>
-        <ul class="list-group">
-            <li ng-repeat="website in model.websites" class="">
-                <p class="pull-right"><a ng-href="#/user/{{model.userId}}/website/{{website._id}}" class="navbar-link"><span class="glyphicon glyphicon-cog pull-right"></span></a></p>
-                <p><a href="#/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a></p>
-            </li>
-        </ul>
+       <ul class="list-group">
+                <li ng-repeat="website in model.websites" class="list-group-item">
+                    <p class="pull-right"><a ng-href="#/user/{{model.userId}}/website/{{website._id}}" class="navbar-link"><span class="glyphicon glyphicon-cog pull-right"></span></a></p>
+                    <p><a href="#/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a></p>
+                </li>
+       </ul>
    </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">

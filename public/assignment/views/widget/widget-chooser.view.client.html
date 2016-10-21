@@ -1,7 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
-            <a class="" href="widget-list.view.client.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
+            <a class="" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></a>
             <a class=" navbar-text-decor" href="#">
                 Choose Widget
@@ -12,42 +13,16 @@
 
 <div class="container-fluid padding-navbar">
     <div class="div-website-list text-color-website-list">
-        <div>
-            <a href="widget-heading.view.client.html"><p>Header</p></a>
-        </div>
-        <div>
-            <p>Label</p>
-        </div>
-        <div>
-            <p>HTML</p>
-        </div>
-        <div>
-            <p>Text Input</p>
-        </div>
-        <div>
-            <p>Link</p>
-        </div>
-        <div>
-            <p>Button</p>
-        </div>
-        <div>
-            <a href="widget-image.view.client.html"><p>Image</p></a>
-        </div>
-        <div>
-            <a href="widget-youtube.view.client.html"><p>YouTube</p></a>
-        </div>
-        <div>
-            <p>Data Table</p>
-        </div>
-        <div>
-            <p>Repeater</p>
+        <div ng-repeat="widget in model.widgets">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                {{widget.widgetType}}</a>
         </div>
     </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="row">
-            <a href="profile.html">
+            <a href="#/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
             </a>
         </div>

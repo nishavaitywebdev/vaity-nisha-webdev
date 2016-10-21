@@ -38,17 +38,17 @@
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page", {
-                templateUrl: "/assignment/views/website/page-list.view.client.html",
+                templateUrl: "/assignment/views/page/page-list.view.client.html",
                 controller: "PageListController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/new", {
-                templateUrl: "/assignment/views/website/page-new.view.client.html",
+                templateUrl: "/assignment/views/page/page-new.view.client.html",
                 controller: "NewPageController",
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid", {
-                templateUrl: "/assignment/views/website/page-edit.view.client.html",
+                templateUrl: "/assignment/views/page/page-edit.view.client.html",
                 controller: "EditPageController",
                 controllerAs: "model"
             })
@@ -58,17 +58,17 @@
                 controllerAs: "model"
             })
             .when("/user/:uid/website/:wid/page/:pid/widget/new", {
-                templateUrl: "/assignment/views/widget/widget-new.view.client.html",
+                templateUrl: "/assignment/views/widget/widget-chooser.view.client.html",
                 controller: "NewWidgetController",
                 controllerAs: "model"
             })
-            .when("/user/:uid/website/:wid/page/:pid/widget/wgid", {
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
                 templateUrl: "/assignment/views/widget/widget-edit.view.client.html",
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
             .otherwise({
-                redirectTo : "index.html"
+                redirectTo : "/login"
             });
     }
 })();

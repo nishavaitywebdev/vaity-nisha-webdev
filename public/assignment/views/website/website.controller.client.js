@@ -9,31 +9,44 @@
         .controller("EditWebsiteController", EditWebsiteController)
     function WebsiteListController($routeParams, WebsiteService) {
         var vm = this;
-        var userId = $routeParams["userId"];
+        vm.userId = $routeParams["uid"];
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(userId);
+            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
         }
         init();
     }
-    function NewWebsiteController($routeParams, WebsiteService) {
+    function NewWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
-        //var vm.userId = $routeParams["userId"];
-        var website;
-        function init() {
+        vm.userId = $routeParams["uid"];
+        vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+        vm.createWebsite = createWebsite;
+        function createWebsite(website) {
+            var id = (Math.floor(100000 + Math.random() * 900000)).toString();
+            id = id.substring(-2);
+            website.developerId = vm.userId;
+            website._id = id.toString();
             WebsiteService.createWebsite(website);
+            $location.url("/user/"+vm.userId+"/website");
         }
-        init();
+
     }
-    function EditWebsiteController($routeParams, WebsiteService) {
+    function EditWebsiteController($routeParams, WebsiteService,$location) {
         var vm = this;
-        vm.websiteId = $routeProvider.websiteId;
+        vm.websiteId = $routeParams.wid;
+        vm.userId = $routeParams.uid;
+        vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+        vm.website = WebsiteService.findWebsiteById(vm.websiteId);
         vm.updateWebsite = updateWebsite;
         vm.deleteWebsite = deleteWebsite;
         function updateWebsite(website) {
-            WebsiteService.updateWebsite(vm.websiteId, website);
+            WebsiteService.updateWebsite(vm.websiteId, vm.website);
+            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            $location.url("/user/"+vm.userId+"/website");
         }
         function deleteWebsite() {
             WebsiteService.deleteWebsite(vm.websiteId);
+            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            $location.url("/user/"+vm.userId+"/website");
         }
     }
 })();
