@@ -27,12 +27,9 @@
                 var id = (Math.floor(100000 + Math.random() * 900000)).toString();
                 id = id.substring(-2);
                 user._id = id;
-                if(user) {
-                    UserService.createUser(user);
-                    $location.url("/user/" + user._id);
-                } else {
-                    vm.alert = "Unable to login";
-                }
+                UserService.createUser(user);
+                $location.url("/user/" + user._id);
+
             }
         }
         function ProfileController($routeParams, UserService,$location) {
@@ -47,10 +44,12 @@
             vm.updateUser = updateUser;
             vm.deleteUser = deleteUser;
 
-            function updateUser(userId,user){
-                UserService.updateUser(userId,user);
-                vm.user = UserService.findUserById(userId);
-                $location.url("/login");
+            function updateUser(){
+                //console.log(vm.userId);
+                UserService.updateUser(vm.userId,vm.user);
+                vm.user = UserService.findUserById(vm.userId);
+                //console.log(vm.user)
+                $location.url("/user/"+vm.userId);
             }
 
             function deleteUser(userId){

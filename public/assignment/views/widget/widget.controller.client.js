@@ -61,7 +61,7 @@
         vm.websiteId = $routeParams.wid;
         vm.pageId = $routeParams.pid;
         vm.widgetId = $routeParams.wgid;
-        console.log(vm.websiteId);
+        //console.log(vm.websiteId);
         function init(){
             vm.widget = WidgetService.findWidgetById(vm.widgetId);
             //console.log(vm.widget);
