@@ -6,7 +6,7 @@
     angular
         .module ("WebAppMaker")
         .factory("UserService", UserService)
-    function UserService(){
+    function UserService($http){
 
     var users = [
         {_id: "123", email:"alice@gmail.com", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
@@ -25,7 +25,7 @@
 
     };
         return api;
-        function createUser(user) {
+        function createUser(username, password) {
             users.push(user);
             //console.log(users);
         }
@@ -54,14 +54,16 @@
         }
         function findUserByCredentials(username, password) {
 
-            var user;
-            for( var u in users){
-                if(users[u].username === username && users[u].password === password){
-                    user = users[u];
-                    break;
-                }
-            }
-            return user;
+            var url = '/api/user?username='+username+'&password='+password;
+            return $http.get(url);
+            // var user;
+            // for( var u in users){
+            //     if(users[u].username === username && users[u].password === password){
+            //         user = users[u];
+            //         break;
+            //     }
+            // }
+            // return user;
         }
         function updateUser(userId, userUpdated) {
             for( var u in users){
