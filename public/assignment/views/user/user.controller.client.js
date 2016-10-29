@@ -11,24 +11,45 @@
             var vm = this;
             vm.login = login;
 
-            function login(username, password) {
-                var user = UserService.findUserByCredentials(username, password);
-                if(user) {
-                    $location.url("user/" + user._id);
-                } else {
-                    vm.alert = "Incorrect login";
-                }
+            function login(username,password){
+                var promise = UserService.findUserByCredentials(username,password);
+                promise
+                    .success(function(user){
+                        if(user === '0'){
+                            vm.alert = "No such user";
+                        }
+                        else{
+                            $location.url("user/" + user._id);
+                        }
+                    })
+                    .error(function(){
+
+                    });
+
+            // function login(username, password) {
+            //     var user = UserService.findUserByCredentials(username, password);
+            //     if(user) {
+            //         $location.url("user/" + user._id);
+            //     } else {
+            //         vm.alert = "Incorrect login";
+            //     }
             }
         }
-        function RegisterController($routeParams, UserService,$location) {
+        function RegisterController($location,UserService) {
             var vm = this;
-            vm.register = register;
-            function register(user) {
-                var id = (Math.floor(100000 + Math.random() * 900000)).toString();
-                id = id.substring(-2);
-                user._id = id;
-                UserService.createUser(user);
-                $location.url("/user/" + user._id);
+            vm.createUser = createUser;
+            var user_new = vm.user;
+            //console.log(vm.user)
+            function createUser(user_new) {
+                console.log(user_new)
+                UserService
+                    .createUser(user_new)
+                    .success(function(userId){
+                    $location.url("user/"+userId);
+                })
+                    .error(function(){
+                        console.log("Error")
+                    })
 
             }
         }
@@ -45,16 +66,33 @@
             vm.deleteUser = deleteUser;
 
             function updateUser(){
+                var promise = UserService.updateUser(vm.userId,vm.user);
+                promise
+                    .success(function(user){
+                        $location.url("user/" + user._id);
+                        })
+                    .error(function(){
+
+                    });
                 //console.log(vm.userId);
-                UserService.updateUser(vm.userId,vm.user);
-                vm.user = UserService.findUserById(vm.userId);
-                //console.log(vm.user)
-                $location.url("/user/"+vm.userId);
+                // UserService.updateUser(vm.userId,vm.user);
+                // vm.user = UserService.findUserById(vm.userId);
+                // //console.log(vm.user)
+                // $location.url("/user/"+vm.userId);
             }
 
             function deleteUser(userId){
-                console.log(UserService.deleteUser(vm.userId));
-                $location.url("/login");
+
+                var promise = UserService.deleteUser(vm.userId);
+                promise
+                    .success(function(userId){
+                        $location.url("/login");
+                    })
+                    .error(function(){
+
+                    });
+                // console.log(UserService.deleteUser(vm.userId));
+                // $location.url("/login");
             }
         }
 })();

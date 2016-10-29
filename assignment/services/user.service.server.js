@@ -12,12 +12,18 @@ module.exports = function (app) {
 
 
     app.get('/api/user', findUser);
-    app.get('/api/user/:uid', findUserById);
-    app.post('/api/user', createUser);
+    // app.get('/api/user?username=username&password=password',findUserByCredentials);
+    app.get('/api/user/:userId',findUserById);
+    app.post('/api/user',createUser);
+    app.put('/api/user/:userId',updateUser);
+    app.delete('/api/user/:userId',deleteUser);
 
-        function createUser() {
+        function createUser(req, res) {
             var user = req.body;
             user._id = (new Date().getTime());
+            users.push(user);
+            console.log(users);
+            res.send(200);
 
         }
 
@@ -25,9 +31,9 @@ module.exports = function (app) {
             var params = req.params;
             var query = req.query;
             if(query.password && query.username){
-                findUserByUserName(req, res);
+                findUserByCredentials(req, res);
             } else if (query.username){
-
+                findUserByUsername(req, res);
             }
             console.log(params);
             console.log(query);
@@ -35,24 +41,32 @@ module.exports = function (app) {
         }
 
 
-        function findUserByUsername(username) {
+        function findUserByUsername(req,res) {
 
-            users.forEach(function(user){
-                if(user.username == username){
-                    return user;
+            var user,username;
+            username = req.query.username;
+            for( var u in users){
+                if(users[u].username === username){
+                    user = users[u];
+                    res.send(user);
+                    return;
                 }
-            });
+            }
+            res.send('0');
         }
-        function findUserByCredentials(username, password) {
+        function findUserByCredentials(req,res) {
 
-            var user;
+            var user, username, password;
+            username = req.username;
+            password = req.password;
             for( var u in users){
                 if(users[u].username === username && users[u].password === password){
                     user = users[u];
-                    break;
+                    res.send(user);
+                    return;
                 }
             }
-            return user;
+            res.send('0');
         }
 
     function findUserById(userId) {
@@ -66,5 +80,27 @@ module.exports = function (app) {
         }
         return user;
 
+    }
+
+    function updateUser(req, res){
+        var user = req.body;
+        var uid = req.params.uid;
+        for(var u in users){
+            if(users[u]._id == uid){
+                users[u] = user;
+            }
+        }
+        res.send('0');
+    }
+
+    function deleteUser(req, res){
+        var user = req.body;
+        var uid = req.params.uid;
+        for(var u in users){
+            if(users[u]._id == uid){
+                users[u] = user;
+            }
+        }
+        res.send('0');
     }
 }
