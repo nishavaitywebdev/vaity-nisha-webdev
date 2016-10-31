@@ -94,11 +94,11 @@ module.exports = function (app) {
     }
 
     function deleteUser(req, res){
-        var user = req.body;
         var uid = req.params.uid;
         for(var u in users){
             if(users[u]._id == uid){
-                users[u] = user;
+                users.splice(u, 1);
+                break;
             }
         }
         res.send('0');

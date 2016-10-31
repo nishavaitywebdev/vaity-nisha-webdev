@@ -13,7 +13,7 @@ module.exports = function (app) {
 
     app.get("api/user/:userId/website", findAllWebsitesForUser);
     app.post("/api/user/:userId/website", createWebsite);
-    app.get("/api/user/:userId/website", findWebsiteById);
+    app.get("/api/website/:websiteId", findWebsiteById);
     app.put("/api/website/:websiteId", updateWebsite);
     app.delete("/api/website/:websiteId", deleteWebsite);
 
@@ -28,6 +28,41 @@ module.exports = function (app) {
         website.developerId = userId;
         websites.push(website);
         res.send(userId);
+    }
+
+    function findWebsiteById(req, res){
+        var website;
+        var websiteId = req.params.websiteId;
+        for( var w in websites){
+            if(websites[w]._id === websiteId){
+                website = websites[w];
+                break;
+            }
+        }
+        res.send(website);
+    }
+
+    function updateWebsite(req, res){
+        var website = req.body;
+        var websiteId = req.params.websiteId;
+        for( var w in websites){
+            if(websites[w]._id === websiteId){
+                websites[w] = website;
+                break;
+            }
+        }
+        res.send('0');
+    }
+
+    function deleteWebsite(req, res){
+        var websiteId = req.params.websiteId;
+        for( var w in websites){
+            if(websites[w]._id === websiteId){
+                websites.splice(w,1);
+                break;
+            }
+        }
+        res.send('0');
     }
 
     function findAllWebsitesForUser(req,res) {

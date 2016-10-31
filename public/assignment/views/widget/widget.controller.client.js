@@ -17,7 +17,14 @@
         vm.checkSafeImageUrl = checkSafeImageUrl;
         function init() {
             //console.log(vm.pageId)
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+            var promise = WidgetService.findWidgetsByPageId(vm.pageId);
+            promise
+                .success(function (widgets) {
+                vm.widgets = widgets;
+                })
+                .error(function(){
+
+                });
         }
         init();
 
@@ -43,15 +50,32 @@
         vm.widgetId = $routeParams.wgid;
         vm.createNewWidget = createNewWidget;
         function createNewWidget(widget) {
-            var id = (Math.floor(100000 + Math.random() * 900000)).toString();
-            id = id.substring(-2);
-            widget._id = id.toString();
-            WidgetService.createWidget(vm.pageId,widget);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
+
+            var promise = WidgetService.createWidget(vm.pageId,widget);
+            promise
+                .success(function () {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
+                })
+                .error(function(){
+
+                });
+
+            // var id = (Math.floor(100000 + Math.random() * 900000)).toString();
+            // id = id.substring(-2);
+            // widget._id = id.toString();
+            // WidgetService.createWidget(vm.pageId,widget);
+            // $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
         }
         function init() {
             //console.log(vm.pageId)
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+            var promise = WidgetService.findWidgetsByPageId(vm.pageId);
+            promise
+                .success(function (widgets) {
+                    vm.widgets = widgets;
+                })
+                .error(function(){
+
+                });
         }
         init();
     }
@@ -62,25 +86,50 @@
         vm.pageId = $routeParams.pid;
         vm.widgetId = $routeParams.wgid;
         //console.log(vm.websiteId);
-        function init(){
-            vm.widget = WidgetService.findWidgetById(vm.widgetId);
-            //console.log(vm.widget);
+        function init() {
+            //console.log(vm.pageId)
+            var promise = WidgetService.findWidgetsByPageId(vm.pageId);
+            promise
+                .success(function (widgets) {
+                    vm.widgets = widgets;
+                })
+                .error(function(){
 
+                });
         }
         init();
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
 
         function updateWidget(widget) {
-            WidgetService.updateWidget(widget);
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+
+            var promise = WidgetService.updateWidget(widget);
+            promise
+                .success(function () {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                })
+                .error(function(){
+
+                });
+
+
+            //vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+
         }
 
         function deleteWidget(widgetId){
-            WidgetService.deleteWidget(widgetId);
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+
+            var promise = WidgetService.deleteWidget(widgetId);
+            promise
+                .success(function () {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                })
+                .error(function(){
+
+                });
+
+            // vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+            // $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
         }
     }
 })();

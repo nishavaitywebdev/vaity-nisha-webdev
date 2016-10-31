@@ -17,23 +17,61 @@
         vm.updatePage = updatePage;
         vm.deletePage = deletePage;
 
+        function init() {
+            var promise = PageService.findPageByWebsiteId(vm.websiteId);
+            promise
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function () {
+
+                })
+
+        }
+        init();
+
         function updatePage(pageId, page) {
-            PageService.updatePage(pageId, page);
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            var promise = PageService.updatePage(pageId, page);
+            promise
+                .success(function (userId,websiteId) {
+                    if(websiteId != '0'){
+                        $location.url("/user/"+ userId+"/website/"+ websiteId+"/page");
+                    }
+                })
+                .error(function(){
+
+                });
+            //vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
         }
 
         function deletePage(pid){
-            PageService.deletePage(pid);
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            var promise = PageService.deletePage(pid);
+            promise
+                .success(function (userId,websiteId) {
+                    if(websiteId != '0'){
+                        $location.url("/user/"+ userId+"/website/"+ websiteId+"/page");
+                    }
+                })
+                .error(function(){
+
+                });
+            //vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
         }
     }
     function PageListController($routeParams,PageService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
-        console.log(vm.websiteId)
+        //console.log(vm.websiteId)
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            var promise = PageService.findPageByWebsiteId(vm.websiteId);
+            promise
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function () {
+
+                })
 
         }
         init();
@@ -46,13 +84,36 @@
         console.log(vm.pages)
         vm.createPage = createPage;
 
+        function init() {
+            var promise = PageService.findPageByWebsiteId(vm.websiteId);
+            promise
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function () {
+
+                })
+
+        }
+        init();
+
         function createPage(websiteId,page) {
-            var id = (Math.floor(100000 + Math.random() * 900000)).toString();
-            id = id.substring(-2);
-            PageService.createPage(websiteId,page,id);
-            vm.pages = PageService.findPageByWebsiteId(websiteId);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-            //console.log(vm.pages)
+
+            var promise = PageService.createPage(websiteId,page);
+            promise
+                .success(function () {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                })
+                .error(function () {
+
+                })
+
+            // var id = (Math.floor(100000 + Math.random() * 900000)).toString();
+            // id = id.substring(-2);
+            // PageService.createPage(websiteId,page,id);
+            // vm.pages = PageService.findPageByWebsiteId(websiteId);
+            // $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+            // //console.log(vm.pages)
         }
     }
 })();
