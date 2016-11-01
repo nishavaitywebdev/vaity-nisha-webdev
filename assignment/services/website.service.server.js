@@ -1,7 +1,7 @@
 /**
  * Created by nishavaity on 10/26/16.
  */
-module.exports = function (app) {
+module.exports = function(app){
     var websites = [
         { "_id": "123", "name": "Facebook",    "developerId": "456" },
         { "_id": "234", "name": "Tweeter",     "developerId": "456" },
@@ -31,6 +31,7 @@ module.exports = function (app) {
     }
 
     function findWebsiteById(req, res){
+        console.log("in website by id")
         var website;
         var websiteId = req.params.websiteId;
         for( var w in websites){
@@ -67,6 +68,7 @@ module.exports = function (app) {
 
     function findAllWebsitesForUser(req,res) {
         var userId = req.params.userId;
+        console.log(userId);
         var websitesOfUser=[];
         for( var w in websites){
             if(websites[w].developerId === userId.toString()){

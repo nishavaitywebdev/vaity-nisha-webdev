@@ -12,6 +12,8 @@
             vm.login = login;
 
             function login(username,password){
+                // console.log(username);
+                // console.log(password);
                 var promise = UserService.findUserByCredentials(username,password);
                 promise
                     .success(function(user){
@@ -57,7 +59,7 @@
             var vm = this;
             vm.userId = $routeParams["uid"];
 
-            //console.log(vm.userId);
+            console.log(vm.userId);
             function init() {
                 vm.user = UserService.findUserById(vm.userId);
             }

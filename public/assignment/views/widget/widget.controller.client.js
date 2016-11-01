@@ -21,6 +21,10 @@
             promise
                 .success(function (widgets) {
                 vm.widgets = widgets;
+                    // var widgets = $(".wam-widgets")
+                    //     .sortable({
+                    //     axis: 'y'
+                    // });
                 })
                 .error(function(){
 
@@ -92,6 +96,7 @@
             promise
                 .success(function (widgets) {
                     vm.widgets = widgets;
+
                 })
                 .error(function(){
 

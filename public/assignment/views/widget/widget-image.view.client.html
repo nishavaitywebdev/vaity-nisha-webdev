@@ -1,6 +1,6 @@
 <div class="container-fluid padding-navbar">
     <div class="div-website-list">
-        <form>
+        <form action="/api/upload"  method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="widget-name">Name</label>
                 <input ng-model="model.widget.name" type="text" class="form-control" id="widget-name" placeholder="Name">
@@ -21,7 +21,7 @@
                 <label class="">Upload</label>
                 <div class="form-group">
                     <label class="btn btn-default btn-file" for="file-upload">
-                        Choose file <input type="file" class="form-control" id="file-upload">
+                        Choose file <input name="myFile" type="file" class="form-control" id="file-upload">
                     </label>
                 </div>
             </div>

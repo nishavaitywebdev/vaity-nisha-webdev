@@ -2,7 +2,7 @@
  * Created by nishavaity on 10/24/16.
  */
 
-module.exports = function (app) {
+module.exports = function(app){
     var users = [
         {_id: "123", email:"alice@gmail.com", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
         {_id: "234", email:"bob@gmail.com", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
@@ -10,7 +10,7 @@ module.exports = function (app) {
         {_id: "456", email:"jannunzi@gmail.com", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
     ];
 
-
+    //console.log("Inside user service server js");
     app.get('/api/user', findUser);
     // app.get('/api/user?username=username&password=password',findUserByCredentials);
     app.get('/api/user/:userId',findUserById);
@@ -23,21 +23,25 @@ module.exports = function (app) {
             user._id = (new Date().getTime());
             users.push(user);
             console.log(users);
-            res.send(200);
+            res.send(user);
 
         }
 
         function findUser(req, res){
+            console.log("Inside find user")
             var params = req.params;
             var query = req.query;
+            //console.log(query);
             if(query.password && query.username){
+                //console.log("In if of creds");
                 findUserByCredentials(req, res);
             } else if (query.username){
+                //console.log("In if of username");
                 findUserByUsername(req, res);
             }
-            console.log(params);
-            console.log(query);
-            res.send(users);
+            // console.log(params);
+            // console.log(query);
+            //res.send(users);
         }
 
 
@@ -57,9 +61,12 @@ module.exports = function (app) {
         function findUserByCredentials(req,res) {
 
             var user, username, password;
-            username = req.username;
-            password = req.password;
+            username = req.query.username;
+            password = req.query.password;
+            //console.log(username);
+            //console.log(password);
             for( var u in users){
+                //console.log(users[u]);
                 if(users[u].username === username && users[u].password === password){
                     user = users[u];
                     res.send(user);
@@ -69,16 +76,19 @@ module.exports = function (app) {
             res.send('0');
         }
 
-    function findUserById(userId) {
+    function findUserById(req,res) {
+        console.log("Inside ind user by id")
         var user;
+        var userId = req.query.userId;
+        console.log(userId)
         for( var u in users){
-            if(users[u]._id === userId){
+            if(users[u]._id === userId.toString()){
                 user = users[u];
-                console.log(user)
-                break;
+                console.log(user);
+                res.send(user);
             }
         }
-        return user;
+        res.send('0');
 
     }
 
