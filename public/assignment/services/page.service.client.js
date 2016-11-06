@@ -39,7 +39,8 @@
         }
         function findPageByWebsiteId(websiteId) {
 
-            var url = "/api/user/"+userId+"/website";
+            var url = "/api/website/"+websiteId+"/page";
+            //console.log(url);
             return $http.get(url);
             // var pagesOfWebsite=[];
             // //console.log(websiteId)
@@ -52,7 +53,7 @@
 
         }
         function findPageById(pageId) {
-            var url = "/api/page"+pageId;
+            var url = "/api/page/"+pageId;
             return $http.get(url);
             // for( var p in pages) {
             //     if (pages[p]._id === pageId.toString()) {
@@ -62,7 +63,7 @@
             // }
         }
         function updatePage(pageId, page) {
-            var url = "/api/page"+pageId;
+            var url = "/api/page/"+pageId;
             return $http.put(url,page);
             // for( var p in pages){
             //     if(pages[p]._id === pageId){
@@ -72,7 +73,7 @@
             // }
         }
         function deletePage(pageId) {
-            var url = "/api/page"+pageId;
+            var url = "/api/page/"+pageId;
             return $http.delete(url);
             // for( var p in pages){
             //     if(pages[p]._id === pageId.toString()){

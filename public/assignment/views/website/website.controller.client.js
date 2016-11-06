@@ -88,7 +88,7 @@
             promise
                 .success(function(userId){
                    if(userId != '0'){
-                       $location.url("/user/"+ user._id+"/website");
+                       $location.url("/user/"+ userId +"/website");
                    }
                 })
                 .error(function(){
@@ -104,7 +104,7 @@
             promise
                 .success(function(userId){
                     if(userId != '0'){
-                        $location.url("/user/"+ user._id+"/website");
+                        $location.url("/user/"+ userId +"/website");
                     }
                 })
                 .error(function(){

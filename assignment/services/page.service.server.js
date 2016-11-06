@@ -49,14 +49,15 @@ module.exports = function (app) {
 
     function updatePage(req, res){
         var page = req.body;
+        console.log(page);
         var pageId = req.params.pageId;
         for( var p in pages){
             if(pages[p]._id === pageId){
-                pages[p] = page;
-                break;
+                pages[p].name = page.name;
+                pages[p].description = page.description;
+                res.send(pages[p].websiteId);
             }
         }
-        res.send('0');
     }
 
     function deletePage(req, res){
@@ -64,14 +65,14 @@ module.exports = function (app) {
         for( var p in pages){
             if(pages[p]._id === pageId){
                 pages.splice(p,1);
-                break;
+                res.send(websiteId);
             }
         }
-        res.send('0');
     }
 
     function findAllPagesForWebsite(req,res) {
         var websiteId = req.params.websiteId;
+        console.log("Inside findAllPagesForWebsite")
         var pagesOfWebsite=[];
         for( var p in pages){
             if(pages[p].websiteId === websiteId.toString()){

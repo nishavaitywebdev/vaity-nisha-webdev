@@ -5,7 +5,7 @@
     angular
         .module ("WebAppMaker")
         .factory("WidgetService", WidgetService)
-    function WidgetService() {
+    function WidgetService($http) {
 
         // var widgets = [//user jannunzi
         //     { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 1, "text": "GIZMODO"},
@@ -90,6 +90,7 @@
         function updateWidget(widgetId, widget) {
 
             var url = '/api/widget/'+widgetId;
+            console.log(widget);
             return $http.put(url,widget);
 
             // for (var w in widgets){

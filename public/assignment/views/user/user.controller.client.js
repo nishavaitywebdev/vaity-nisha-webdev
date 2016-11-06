@@ -42,12 +42,12 @@
             vm.createUser = createUser;
             var user_new = vm.user;
             //console.log(vm.user)
-            function createUser(user_new) {
-                console.log(user_new)
+            function createUser(user) {
+                //console.log(user)
                 UserService
-                    .createUser(user_new)
-                    .success(function(userId){
-                    $location.url("user/"+userId);
+                    .createUser(user)
+                    .success(function(user){
+                    $location.url("user/"+user._id);
                 })
                     .error(function(){
                         console.log("Error")

@@ -7,7 +7,7 @@
         .controller("EditPageController", EditPageController)
         .controller("PageListController", PageListController)
         .controller("NewPageController", NewPageController)
-    function EditPageController($routeParams, PageService) {
+    function EditPageController($routeParams, PageService, $location) {
         var vm = this;
         vm.userId = $routeParams.uid;
         vm.pageId = $routeParams.pid;
@@ -16,7 +16,6 @@
         vm.page = PageService.findPageById(vm.pageId);
         vm.updatePage = updatePage;
         vm.deletePage = deletePage;
-
         function init() {
             var promise = PageService.findPageByWebsiteId(vm.websiteId);
             promise
@@ -29,15 +28,12 @@
 
         }
         init();
-
         function updatePage(pageId, page) {
             var promise = PageService.updatePage(pageId, page);
             promise
-                .success(function (userId,websiteId) {
-                    if(websiteId != '0'){
-                        $location.url("/user/"+ userId+"/website/"+ websiteId+"/page");
-                    }
-                })
+                .success(function (websiteId) {
+                    $location.url("/user/"+ vm.userId+"/website/"+ websiteId+"/page");
+                    })
                 .error(function(){
 
                 });
@@ -47,10 +43,8 @@
         function deletePage(pid){
             var promise = PageService.deletePage(pid);
             promise
-                .success(function (userId,websiteId) {
-                    if(websiteId != '0'){
-                        $location.url("/user/"+ userId+"/website/"+ websiteId+"/page");
-                    }
+                .success(function (websiteId) {
+                    $location.url("/user/"+ vm.userId+"/website/"+ websiteId+"/page");
                 })
                 .error(function(){
 

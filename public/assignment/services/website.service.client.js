@@ -40,7 +40,7 @@
         function findWebsiteById(websiteId) {
 
 
-            var url = "/api/website"+websiteId;
+            var url = "/api/website/"+websiteId;
             return $http.get(url);
 
             // var website;
@@ -56,7 +56,7 @@
         }
         function updateWebsite(websiteId, websiteUpdated) {
 
-            var url = "/api/website"+websiteId;
+            var url = "/api/website/"+websiteId;
             return $http.put(url,websiteUpdated);
 
             // for (var w in websites){
@@ -68,7 +68,7 @@
         }
         function deleteWebsite(websiteId) {
 
-            var url = "/api/website"+websiteId;
+            var url = "/api/website/"+websiteId;
             return $http.delete(url);
 
             // for (var w in websites){

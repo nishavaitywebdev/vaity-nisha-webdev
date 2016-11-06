@@ -11,7 +11,7 @@ module.exports = function(app){
         { "_id": "789", "name": "Chess",       "developerId": "234" }
     ];
 
-    app.get("api/user/:userId/website", findAllWebsitesForUser);
+    app.get("/api/user/:userId/website", findAllWebsitesForUser);
     app.post("/api/user/:userId/website", createWebsite);
     app.get("/api/website/:websiteId", findWebsiteById);
     app.put("/api/website/:websiteId", updateWebsite);

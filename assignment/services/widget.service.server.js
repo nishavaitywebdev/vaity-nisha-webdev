@@ -99,6 +99,7 @@ module.exports = function (app) {
 
     function updateWidget(req, res){
         var widget = req.body;
+        console.log(widget);
         var widgetId = req.params.widgetId;
         for( var w in widgets){
             if(widgets[w]._id === widgetId){
