@@ -12,12 +12,12 @@
                 </a>
             </div>
         <div class="col-xs-12 col-sm-8">
-                <a class="hidden-lg hidden-sm" href="website-list.view.client.html"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
+                <a class="hidden-lg hidden-sm" href="#/user/{{model.userId}}/website/{{model.websiteId}}"><span class="glyphicon glyphicon-chevron-left white-glyphicon">
               </span></a>
                 <a class="navbar-text-decor" href="#">
                     Edit Website
                 </a>
-                <a ng-click="model.updateWebsite()" href="" class="">
+                <a ng-click = "model.updateWebsite(model.websiteId,model.website)" href="" class="">
               <span class="glyphicon glyphicon-ok white-glyphicon pull-right">
               </span>
                 </a>

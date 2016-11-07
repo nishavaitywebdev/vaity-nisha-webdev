@@ -5,7 +5,7 @@
                 <span class="glyphicon glyphicon-chevron-left white-glyphicon ">
                 </span>
             </a>
-            <a  href="#">
+            <a  href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
                 <span class="navbar-text-decor">Widgets</span>
         </a>
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="">
@@ -17,7 +17,8 @@
 </nav>
 
 <div class="container-fluid padding-navbar">
-        <div ng-switch="widget.widgetType" class="wam-widgets" ng-repeat="widget in model.widgets">
+    <div class="wamSortable">
+    <div ng-switch="widget.widgetType" class="wam-widgets" ng-repeat="widget in model.widgets">
             <div class="widget-container">
                 <div class="widget-tag"><span class="glyphicon glyphicon-align-justify pull-right">
                    </span>
@@ -49,6 +50,7 @@
             </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">

@@ -30,6 +30,7 @@ module.exports = function (app) {
         id = id.substring(-2);
 
         page._id = id;
+        page.websiteId = websiteId;
         //website.developerId = websiteId;
         pages.push(page);
         res.send(websiteId);
@@ -41,10 +42,10 @@ module.exports = function (app) {
         for( var p in pages){
             if(pages[p]._id === pageId){
                 page = pages[p];
-                break;
+                res.send(page);
             }
         }
-        res.send(page);
+        //res.send('0');
     }
 
     function updatePage(req, res){
@@ -62,8 +63,10 @@ module.exports = function (app) {
 
     function deletePage(req, res){
         var pageId = req.params.pageId;
+        var websiteId;
         for( var p in pages){
             if(pages[p]._id === pageId){
+                websiteId = pages[p].websiteId;
                 pages.splice(p,1);
                 res.send(websiteId);
             }
@@ -72,7 +75,7 @@ module.exports = function (app) {
 
     function findAllPagesForWebsite(req,res) {
         var websiteId = req.params.websiteId;
-        console.log("Inside findAllPagesForWebsite")
+        //console.log("Inside findAllPagesForWebsite")
         var pagesOfWebsite=[];
         for( var p in pages){
             if(pages[p].websiteId === websiteId.toString()){

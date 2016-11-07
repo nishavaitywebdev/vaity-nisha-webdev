@@ -40,7 +40,7 @@
         function RegisterController($location,UserService) {
             var vm = this;
             vm.createUser = createUser;
-            var user_new = vm.user;
+            //var user_new = vm.user;
             //console.log(vm.user)
             function createUser(user) {
                 //console.log(user)
@@ -61,40 +61,53 @@
 
             console.log(vm.userId);
             function init() {
-                vm.user = UserService.findUserById(vm.userId);
+                var promise = UserService.findUserById(vm.userId);
+                promise
+                    .success(function(user){
+                        if(user != '0'){
+                            vm.user = user;
+
+                        }
+                    })
+                    .error(function(){
+
+                    });
             }
             init();
             vm.updateUser = updateUser;
             vm.deleteUser = deleteUser;
 
-            function updateUser(){
-                var promise = UserService.updateUser(vm.userId,vm.user);
+            function updateUser(userId,user){
+                var promise = UserService.updateUser(userId,user);
                 promise
                     .success(function(user){
-                        $location.url("user/" + user._id);
-                        })
-                    .error(function(){
+                        if(user != '0'){
+                            vm.user = user;
 
-                    });
-                //console.log(vm.userId);
-                // UserService.updateUser(vm.userId,vm.user);
-                // vm.user = UserService.findUserById(vm.userId);
-                // //console.log(vm.user)
-                // $location.url("/user/"+vm.userId);
-            }
+                        }
 
-            function deleteUser(userId){
-
-                var promise = UserService.deleteUser(vm.userId);
-                promise
-                    .success(function(userId){
-                        $location.url("/login");
                     })
                     .error(function(){
 
                     });
-                // console.log(UserService.deleteUser(vm.userId));
-                // $location.url("/login");
+
+            }
+
+            function deleteUser(userId){
+
+                var promise = UserService.deleteUser(userId);
+
+                promise
+                    .success(function(response){
+                        if(response == 'OK'){
+                            $location.url("/login");
+                        }
+                    })
+                    .error(function(){
+
+                    });
+
+
             }
         }
 })();

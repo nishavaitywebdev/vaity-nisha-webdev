@@ -17,7 +17,7 @@
         vm.checkSafeImageUrl = checkSafeImageUrl;
         function init() {
             //console.log(vm.pageId)
-            var promise = WidgetService.findWidgetsByPageId(vm.pageId);
+            var promise = WidgetService.findWidgetByPageId(vm.pageId);
             promise
                 .success(function (widgets) {
                 vm.widgets = widgets;
@@ -57,8 +57,10 @@
 
             var promise = WidgetService.createWidget(vm.pageId,widget);
             promise
-                .success(function () {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
+                .success(function(widget){
+                    if(widget != null){
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+widget.pageId+"/widget/"+ widget._id);
+                    }
                 })
                 .error(function(){
 
@@ -67,23 +69,20 @@
 
         }
         function init() {
-            var id = (Math.floor(100000 + Math.random() * 900000)).toString();
-            id = id.substring(-2);
-            widget._id = id.toString();
-            WidgetService.createWidget(vm.pageId,widget);
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
-            // var promise = WidgetService.findWidgetById(vm.widgetId);
-            // promise
-            //     .success(function (widget) {
-            //         vm.widget = widget;
-            //
-            //
-            //     })
-            //     .error(function(){
-            //
-            //     });
+            var promise = WidgetService.findWidgetById(vm.widgetId);
+
+            promise
+                .success(function(widget){
+                    if(widget != '0'){
+                        vm.widget = widget;
+                    }
+
+                })
+                .error(function(){
+
+                });
         }
-        //init();
+        init();
     }
     function EditWidgetController($routeParams, WidgetService, $location) {
         var vm = this;
@@ -109,13 +108,13 @@
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
 
-        function updateWidget(widget) {
+        function updateWidget(widgetId,widget){
             //console.log(widget);
 
-            var promise = WidgetService.updateWidget(vm.widgetId,widget);
+            var promise = WidgetService.updateWidget(widgetId,widget);
             promise
-                .success(function () {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                .success(function (pageId) {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+pageId+"/widget");
                 })
                 .error(function(){
 
@@ -130,8 +129,8 @@
 
             var promise = WidgetService.deleteWidget(widgetId);
             promise
-                .success(function () {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                .success(function (pageId) {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+pageId+"/widget");
                 })
                 .error(function(){
 

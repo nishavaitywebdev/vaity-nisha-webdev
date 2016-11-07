@@ -1,6 +1,6 @@
 <div class="container-fluid padding-navbar">
     <div class="div-website-list">
-        <form action="/api/upload"  method="post" enctype="multipart/form-data">
+        <!--<form action="/api/upload"  method="post" enctype="multipart/form-data">-->
             <div class="form-group">
                 <label for="widget-name">Name</label>
                 <input ng-model="model.widget.name" type="text" class="form-control" id="widget-name" placeholder="Name">
@@ -18,19 +18,23 @@
                 <input ng-model="model.widget.width" type="text" class="form-control" id="widget-width" placeholder="Width">
             </div>
             <div class="form-group">
-                <label class="">Upload</label>
-                <div class="form-group">
-                    <label class="btn btn-default btn-file" for="file-upload">
-                        Choose file <input name="myFile" type="file" class="form-control" id="file-upload">
-                    </label>
-                </div>
+                <label for ="upload">Upload</label>
+                <!--<input name="myFile" type="file" class="form-control" id="upload" placeholder="Upload">-->
+                <form action="/api/upload" id="upload" method="post" enctype="multipart/form-data">
+                    <input  name="myFile"   type="file" class="form-control"/>
+                    <input  name="width"    value="{{model.widget.width}}" style="display: none"/>
+                    <input  name="widgetId" value="{{model.widget._id}}"   style="display: none"/>
+                    <input  name="userId" value="{{model.userId}}"   style="display: none"/>
+                    <input  name="websiteId" value="{{model.websiteId}}"   style="display: none"/>
+                    <button type="submit"   class="btn btn-block btn-primary">Upload Image</button>
+                </form>
             </div>
-            <div class="form-group"><a class="btn btn-primary btn-block"
-                                       href="#">Upload</a>
-            </div>
+            <!--<div class="form-group"><a class="btn btn-primary btn-block"-->
+                                       <!--href="#">Upload</a>-->
+            <!--</div>-->
             <div class="form-group"><a class="btn btn-danger btn-block"
                                        ng-click="model.deleteWidget(model.widget._id)">Delete</a>
             </div>
-        </form>
+        <!--</form>-->
     </div>
 </div>

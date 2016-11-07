@@ -12,8 +12,8 @@
         vm.userId = $routeParams.uid;
         vm.pageId = $routeParams.pid;
         vm.websiteId = $routeParams["wid"];
-        vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
-        vm.page = PageService.findPageById(vm.pageId);
+        //vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+        //vm.page = PageService.findPageById(vm.pageId);
         vm.updatePage = updatePage;
         vm.deletePage = deletePage;
         function init() {
@@ -25,6 +25,15 @@
                 .error(function () {
 
                 })
+            var promise1 = PageService.findPageById(vm.pageId);
+            promise1
+                .success(function (page) {
+                    vm.page = page;
+                })
+                .error(function () {
+
+                })
+
 
         }
         init();
@@ -44,7 +53,9 @@
             var promise = PageService.deletePage(pid);
             promise
                 .success(function (websiteId) {
-                    $location.url("/user/"+ vm.userId+"/website/"+ websiteId+"/page");
+                    if(websiteId != '0'){
+                        $location.url("/user/"+vm.userId+"/website/"+websiteId+"/page");
+                    }
                 })
                 .error(function(){
 
@@ -75,7 +86,7 @@
         vm.userId = $routeParams.uid;
         vm.websiteId = $routeParams.wid;
         vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
-        console.log(vm.pages)
+        //console.log(vm.pages)
         vm.createPage = createPage;
 
         function init() {
@@ -88,6 +99,7 @@
 
                 })
 
+
         }
         init();
 
@@ -95,12 +107,14 @@
 
             var promise = PageService.createPage(websiteId,page);
             promise
-                .success(function () {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                .success(function(websiteId){
+                    if(websiteId != ''){
+                        $location.url("/user/"+vm.userId+"/website/"+websiteId+"/page");
+                    }
                 })
-                .error(function () {
+                .error(function(){
 
-                })
+                });
 
             // var id = (Math.floor(100000 + Math.random() * 900000)).toString();
             // id = id.substring(-2);

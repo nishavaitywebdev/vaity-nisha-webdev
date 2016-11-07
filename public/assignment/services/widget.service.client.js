@@ -46,10 +46,11 @@
 
         var api = {
             createWidget   : createWidget,
-            findWidgetsByPageId : findWidgetsByPageId,
+            findWidgetByPageId : findWidgetByPageId,
             findWidgetById : findWidgetById,
             updateWidget : updateWidget,
-            deleteWidget : deleteWidget
+            deleteWidget : deleteWidget,
+            sort : sort
 
         };
         return api;
@@ -61,7 +62,7 @@
             //
         }
 
-        function findWidgetsByPageId(pageId) {
+        function findWidgetByPageId(pageId) {
             var url = '/api/page/'+pageId+'/widget';
             return $http.get(url);
 
@@ -90,7 +91,7 @@
         function updateWidget(widgetId, widget) {
 
             var url = '/api/widget/'+widgetId;
-            console.log(widget);
+            //console.log(widget);
             return $http.put(url,widget);
 
             // for (var w in widgets){
@@ -112,6 +113,13 @@
             //     }
             // }
             //console.log(widgets);
+        }
+        
+        function sort(start,end) {
+            var url ="/api/assignment?start=START&end=END";
+            url = url.replace("START",start)
+                .replace("END",end);
+            $http.put(url);
         }
 
     }

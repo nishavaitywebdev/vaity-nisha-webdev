@@ -18,7 +18,7 @@
 
         var api = {
             createWebsite   : createWebsite,
-            findWebsitesByUser : findWebsitesByUser,
+            findWebsiteByUser : findWebsiteByUser,
             findWebsiteById : findWebsiteById,
             updateWebsite : updateWebsite,
             deleteWebsite : deleteWebsite
@@ -32,7 +32,7 @@
 
            // websites.push(website);
         }
-        function findWebsitesByUser(userId) {
+        function findWebsiteByUser(userId) {
             //console.log(userId)
             var url = "/api/user/"+userId+"/website";
             return $http.get(url);

@@ -20,8 +20,7 @@
             findUserByUsername : findUserByUsername,
             findUserByCredentials : findUserByCredentials,
             updateUser : updateUser,
-            deleteUser : deleteUser,
-            getAllUsers : getAllUsers
+            deleteUser : deleteUser
 
     };
         return api;
@@ -32,12 +31,10 @@
             return $http.post(url,user);
             //console.log(users);
         }
-        function getAllUsers() {
-            return users;
-        }
+
         function findUserById(userId) {
 
-            var url = '/api/user?userId='+userId;
+            var url = '/api/user/' +  userId;
             return $http.get(url);
             // var user;
             // for( var u in users){
@@ -63,7 +60,7 @@
         function findUserByCredentials(username, password) {
 
             var url = '/api/user?username='+username+'&password='+password;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
             // var user;
             // for( var u in users){
@@ -74,7 +71,7 @@
             // }
             // return user;
         }
-        function updateUser(userId) {
+        function updateUser(userId,user) {
             var url = "/api/user/" + userId;
             return $http.put(url,user);
             // for( var u in users){

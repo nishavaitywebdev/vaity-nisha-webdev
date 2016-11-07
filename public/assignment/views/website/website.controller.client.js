@@ -10,9 +10,9 @@
     function WebsiteListController($routeParams, WebsiteService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
-        console.log(vm.userId);
+        //console.log(vm.userId);
         function init() {
-            var promise = WebsiteService.findWebsitesByUser(vm.userId);
+            var promise = WebsiteService.findWebsiteByUser(vm.userId);
             promise
                 .success(function(websites){
                     vm.websites = websites;
@@ -26,11 +26,12 @@
     function NewWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
         vm.userId = $routeParams["uid"];
-        vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+        vm.websiteId = $routeParams.wid;
+        //vm.websites = WebsiteService.findWebsiteByUser(vm.userId);
         vm.createWebsite = createWebsite;
 
         function init() {
-            var promise = WebsiteService.findWebsitesByUser(vm.userId);
+            var promise = WebsiteService.findWebsiteByUser(vm.userId);
             promise
                 .success(function(websites){
                     vm.websites = websites;
@@ -45,8 +46,8 @@
 
             var promise = WebsiteService.createWebsite(userId, website);
             promise
-                .success(function(user){
-                    $location.url("/user/"+ user._id+"/website");
+                .success(function(userId){
+                    $location.url("/user/"+ userId+"/website");
                 })
                 .error(function(){
 
@@ -65,16 +66,24 @@
         var vm = this;
         vm.websiteId = $routeParams.wid;
         vm.userId = $routeParams.uid;
-        vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-        vm.website = WebsiteService.findWebsiteById(vm.websiteId);
+        //vm.websites = WebsiteService.findWebsiteByUser(vm.userId);
+        //vm.website = WebsiteService.findWebsiteById(vm.websiteId);
         vm.updateWebsite = updateWebsite;
         vm.deleteWebsite = deleteWebsite;
 
         function init() {
-            var promise = WebsiteService.findWebsitesByUser(vm.userId);
+            var promise = WebsiteService.findWebsiteByUser(vm.userId);
             promise
                 .success(function(websites){
                     vm.websites = websites;
+                })
+                .error(function(){
+
+                });
+            var promise1 = WebsiteService.findWebsiteById(vm.websiteId);
+            promise1
+                .success(function(website){
+                    vm.website = website;
                 })
                 .error(function(){
 

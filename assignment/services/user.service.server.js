@@ -20,15 +20,15 @@ module.exports = function(app){
 
         function createUser(req, res) {
             var user = req.body;
-            user._id = (new Date().getTime());
+            user._id = (new Date().getTime()).toString();
             users.push(user);
-            console.log(users);
+            //console.log(users);
             res.send(user);
 
         }
 
         function findUser(req, res){
-            console.log("Inside find user")
+            //console.log("Inside find user")
             var params = req.params;
             var query = req.query;
             //console.log(query);
@@ -77,26 +77,23 @@ module.exports = function(app){
         }
 
     function findUserById(req,res) {
-        console.log("Inside ind user by id")
-        var user;
-        var userId = req.query.userId;
-        console.log(userId)
+        //console.log("Inside ind user by id")
+        var userId = req.params.userId;
         for( var u in users){
+            //console.log(users[u]);
             if(users[u]._id === userId.toString()){
                 user = users[u];
-                console.log(user);
                 res.send(user);
             }
         }
-        res.send('0');
-
+        //res.send('0');
     }
 
     function updateUser(req, res){
         var user = req.body;
-        var uid = req.params.uid;
+        var uid = req.params.userId;
         for(var u in users){
-            if(users[u]._id == uid){
+            if(users[u]._id == uid.toString()){
                 users[u] = user;
             }
         }
@@ -104,11 +101,11 @@ module.exports = function(app){
     }
 
     function deleteUser(req, res){
-        var uid = req.params.uid;
+        var uid = req.params.userId;
         for(var u in users){
-            if(users[u]._id == uid){
+            if(users[u]._id == uid.toString()){
                 users.splice(u, 1);
-                break;
+                res.send(200);
             }
         }
         res.send('0');
