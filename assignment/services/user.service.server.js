@@ -108,6 +108,6 @@ module.exports = function(app){
                 res.send(200);
             }
         }
-        res.send('0');
+        //res.send('0');
     }
 }
