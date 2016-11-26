@@ -102,19 +102,26 @@ module.exports = function(app,model){
     function findUserById(req,res) {
         //console.log("Inside ind user by id")
         var userId = req.params.userId;
-        for( var u in users){
-            //console.log(user[u]);
-            if(users[u]._id === userId.toString()){
-                user = users[u];
-                res.send(user);
-            }
-        }
+        model.userModel
+            .findUserById(userId)
+            .then(
+                function (user) {
+                    console.log(user);
+                    if(user)
+                        res.send(user);
+                    else
+                        res.send('0');
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
         //res.send('0');
     }
 
     function updateUser(req, res){
         var user = req.body;
         var uid = req.params.userId;
+        console.log(uid);
         model
             .userModel
             .updateUser(uid, user)
@@ -134,7 +141,8 @@ module.exports = function(app,model){
 
     function deleteUser(req, res){
         var uid = req.params.userId;
-        model.userModel.deleteUser(uid)
+        model.userModel
+            .deleteUser(uid)
             .then(
                 function (status) {
                     res.send(200);

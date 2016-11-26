@@ -50,7 +50,7 @@
         var vm = this;
         vm.userId = $routeParams.uid;
         vm.websiteId = $routeParams.wid;
-        vm.pageId = $routeParams.pid;
+        vm.pageId = $routeParams.pid.toString();
         //vm.widgetId = $routeParams.wgid;
         vm.createNewWidget = createNewWidget;
         function createNewWidget(widget) {
@@ -58,6 +58,7 @@
             var promise = WidgetService.createWidget(vm.pageId,widget);
             promise
                 .success(function(widget){
+                    console.log(widget);
                     if(widget != null){
                         $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+widget.pageId+"/widget/"+ widget._id);
                     }
@@ -68,21 +69,21 @@
 
 
         }
-        function init() {
-            var promise = WidgetService.findWidgetById(vm.widgetId);
-
-            promise
-                .success(function(widget){
-                    if(widget != '0'){
-                        vm.widget = widget;
-                    }
-
-                })
-                .error(function(){
-
-                });
-        }
-        init();
+        // function init() {
+        //     var promise = WidgetService.findWidgetById(vm.widgetId);
+        //
+        //     promise
+        //         .success(function(widget){
+        //             if(widget != '0'){
+        //                 vm.widget = widget;
+        //             }
+        //
+        //         })
+        //         .error(function(){
+        //
+        //         });
+        // }
+        // init();
     }
     function EditWidgetController($routeParams, WidgetService, $location) {
         var vm = this;

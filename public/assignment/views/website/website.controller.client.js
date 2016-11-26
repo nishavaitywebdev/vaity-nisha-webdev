@@ -14,8 +14,9 @@
         function init() {
             var promise = WebsiteService.findWebsiteByUser(vm.userId);
             promise
-                .success(function(user){
-                    vm.websites = user.websites;
+                .success(function(websites){
+                    //console.log(websites);
+                    vm.websites = websites;
                 })
                 .error(function(){
 
@@ -25,7 +26,8 @@
     }
     function NewWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
-        vm.userId = $routeParams["uid"];
+        vm.userId = $routeParams["uid"].toString();
+        //console.log(vm.userId);
         vm.websiteId = $routeParams.wid;
         //vm.websites = WebsiteService.findWebsiteByUser(vm.userId);
         vm.createWebsite = createWebsite;
@@ -43,10 +45,10 @@
         init();
 
         function createWebsite(userId, website) {
-
+            //console.log(userId);
             var promise = WebsiteService.createWebsite(userId, website);
             promise
-                .success(function(userId){
+                .success(function(data){
                     $location.url("/user/"+ userId+"/website");
                 })
                 .error(function(){

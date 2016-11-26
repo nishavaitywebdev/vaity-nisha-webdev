@@ -34,8 +34,8 @@ module.exports = function(app, model){
         WebsiteModel
             .createWebsite(userId, website)
             .then(function (website) {
-                console.log(website);
-                res.send(website);
+                //console.log(website);
+                res.send(200);
             },
             function (error) {
                 res.sendStatus(400).send(error);
@@ -85,10 +85,10 @@ module.exports = function(app, model){
     }
 
     function findAllWebsitesForUser(req,res) {
-        var userId = req.params.uid;
+        var userId = req.params.userId;
         //var websites = []
         WebsiteModel
-            .findAllWebsitesForUser(userId)
+            .findWebsitesForUser(userId)
             .then(function (websites) {
                 res.json(websites);
             },

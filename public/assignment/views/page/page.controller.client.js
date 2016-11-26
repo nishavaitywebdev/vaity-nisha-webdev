@@ -66,7 +66,7 @@
     function PageListController($routeParams,PageService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
-        vm.websiteId = $routeParams["wid"];
+        vm.websiteId = $routeParams["wid"].toString();
         //console.log(vm.websiteId)
         function init() {
             var promise = PageService.findPageByWebsiteId(vm.websiteId);
@@ -84,7 +84,7 @@
     function NewPageController($routeParams,PageService,$location) {
         var vm = this;
         vm.userId = $routeParams.uid;
-        vm.websiteId = $routeParams.wid;
+        vm.websiteId = $routeParams.wid.toString();
         vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
         //console.log(vm.pages)
         vm.createPage = createPage;
@@ -107,8 +107,8 @@
 
             var promise = PageService.createPage(websiteId,page);
             promise
-                .success(function(websiteId){
-                    if(websiteId != ''){
+                .success(function(data){
+                    if(data != ''){
                         $location.url("/user/"+vm.userId+"/website/"+websiteId+"/page");
                     }
                 })

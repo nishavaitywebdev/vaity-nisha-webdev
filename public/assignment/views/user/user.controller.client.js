@@ -62,12 +62,11 @@
 
             console.log(vm.userId);
             function init() {
-                var promise = UserService.findUserById(vm.userId);
-                promise
+                UserService.findUserById(vm.userId)
                     .success(function(user){
-                        if(user != '0'){
+                        if(user != null){
                             vm.user = user;
-
+                            console.log(vm.user);
                         }
                     })
                     .error(function(){
@@ -79,8 +78,7 @@
             vm.deleteUser = deleteUser;
 
             function updateUser(userId,user){
-                var promise = UserService.updateUser(userId,user);
-                promise
+                UserService.updateUser(userId,user)
                     .success(function(user){
                         if(user != '0'){
                             vm.user = user;
@@ -96,9 +94,7 @@
 
             function deleteUser(userId){
 
-                var promise = UserService.deleteUser(userId);
-
-                promise
+                UserService.deleteUser(userId)
                     .success(function(response){
                         if(response == 'OK'){
                             $location.url("/login");

@@ -62,14 +62,23 @@ module.exports = function (app, model) {
     function createWidget(req,res){
         var pageId = req.params.pageId;
         var widget = req.body;
-        var id = (Math.floor(100000 + Math.random() * 900000)).toString();
-        id = id.substring(-2);
-
-        widget._id = id;
-        widget.pageId = pageId.toString();
+        // var id = (Math.floor(100000 + Math.random() * 900000)).toString();
+        // id = id.substring(-2);
+        //
+        // widget._id = id;
+        //widget.pageId = pageId.toString();
+        WidgetModel
+            .createWidget(widgetId)
+            .then(function (widget) {
+                    //console.log(website);
+                    res.send(widget);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
         //website.developerId = userId;
-        widgets.push(widget);
-        res.send(widget);
+        // widgets.push(widget);
+        // res.send(widget);
     }
 
     function findWidgetById(req, res){

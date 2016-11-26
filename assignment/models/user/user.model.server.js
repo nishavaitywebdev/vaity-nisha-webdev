@@ -28,7 +28,7 @@ module.exports = function () {
 
         return UserModel.findById(userId)
             .then(function (user) {
-                return user.websites;
+                return user;
             })
     }
 
@@ -64,7 +64,8 @@ module.exports = function () {
     }
 
     function deleteUser(userId) {
-        UserModel.remove({
+
+        return UserModel.remove({
             _id: userId
         })
 
