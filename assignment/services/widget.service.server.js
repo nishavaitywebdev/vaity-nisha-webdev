@@ -1,10 +1,11 @@
 /**
  * Created by nishavaity on 10/26/16.
  */
-module.exports = function (app) {
+module.exports = function (app, model) {
     var multer = require('multer'); // npm install multer --save
     var upload = multer({ dest: __dirname+'/../../public/assignment/uploads' });
 
+    var WidgetModel = model.widgetModel;
 
     var widgets = [
         // { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 1, "text": "GIZMODO"},
@@ -72,64 +73,60 @@ module.exports = function (app) {
     }
 
     function findWidgetById(req, res){
-        var widget;
+       // var widget;
         var widgetId = req.params.widgetId;
-        for( var w in widgets){
-            if(widgets[w]._id === widgetId){
-                widget = widgets[w];
-                res.send(widget);
-            }
-        }
-        //res.send('0');
+        WidgetModel
+            .findWidgetById(widgetId)
+            .then(function (widget) {
+                    //console.log(website);
+                    res.send(widget);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
 
     function updateWidget(req, res){
         var widget = req.body;
         //console.log(widget);
         var widgetId = req.params.widgetId;
-        for( var w in widgets){
-            if(widgets[w]._id === widgetId.toString()){
-                if(widget.widgetType == 'HEADER'){
-
-                    widgets[w].text = widget.text;
-                    widgets[w].size = widget.size;
-                    res.send(widgets[w].pageId);
-                }
-
-                else if(widget.widgetType == 'IMAGE' || widget.widgetType == 'YOUTUBE'){
-                    widgets[w].text = widget.text;
-                    widgets[w].url = widget.url;
-                    widgets[w].width = widget.width;
-                    res.send(widgets[w].pageId);
-                }
-
-            }
-
-        }
-        //res.send('0');
+        WidgetModel
+            .updateWidget(widgetId, widget)
+            .then(function (data) {
+                    //console.log(website);
+                    res.send(200);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
     }
 
     function deleteWidget(req, res){
         var widgetId = req.params.widgetId;
-        for( var w in widgets){
-            if(widgets[w]._id === widgetId.toString()){
-                var pageId = widgets[w].pageId;
-                widgets.splice(w,1);
-                res.send(pageId);
-            }
-        }
-        //res.send('0');
+        WidgetModel
+            .deleteWidget(widgetId)
+            .then(
+                function(data) {
+                    res.send(200);
+                },
+                function(error) {
+                    res.statusCode(400).send(error);
+                }
+            )
     }
 
     function findAllWidgetsForPage(req,res) {
-        var pageId = req.params.pageId;
-        var widgetsOfPage=[];
-        for( var w in widgets){
-            if(widgets[w].pageId === pageId.toString()){
-                widgetsOfPage.push(widgets[w]);
-            }
-        };
-        res.send(widgetsOfPage);
+        var pageId = req.params.pid;
+        WidgetModel
+            .findAllWidgetsForPage(pageId)
+            .then(
+                function(widgets) {
+                    res.send(widgets);
+                },
+                function(error) {
+                    res.statusCode(400).send(error);
+                }
+            )
     }
 
     function uploadImage(req, res) {

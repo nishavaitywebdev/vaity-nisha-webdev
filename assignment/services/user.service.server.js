@@ -2,7 +2,7 @@
  * Created by nishavaity on 10/24/16.
  */
 
-module.exports = function(app){
+module.exports = function(app,model){
     var users = [
         {_id: "123", email:"alice@gmail.com", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
         {_id: "234", email:"bob@gmail.com", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
@@ -20,10 +20,18 @@ module.exports = function(app){
 
         function createUser(req, res) {
             var user = req.body;
-            user._id = (new Date().getTime()).toString();
-            users.push(user);
-            //console.log(users);
-            res.send(user);
+            // user._id = (new Date().getTime()).toString();
+            // user.push(user);
+            model.userModel.createUser(user)
+                .then(
+                    function (newuser) {
+                        res.send(newuser);
+                    },
+                    function (error) {
+                        res.sendStatus(400).send("Error");
+                    }
+                );
+
 
         }
 
@@ -41,7 +49,7 @@ module.exports = function(app){
             }
             // console.log(params);
             // console.log(query);
-            //res.send(users);
+            //res.send(user);
         }
 
 
@@ -65,22 +73,37 @@ module.exports = function(app){
             password = req.query.password;
             //console.log(username);
             //console.log(password);
-            for( var u in users){
-                //console.log(users[u]);
-                if(users[u].username === username && users[u].password === password){
-                    user = users[u];
-                    res.send(user);
-                    return;
-                }
-            }
-            res.send('0');
+            // for( var u in user){
+            //     //console.log(user[u]);
+            //     if(user[u].username === username && user[u].password === password){
+            //         user = user[u];
+            //         res.send(user);
+            //         return;
+            //     }
+            // }
+
+            model
+                .userModel
+                .findUserByCredentials(username, password)
+                .then(
+                    function (user) {
+                        if(user)
+                            res.json(user);
+                        else
+                            res.send('0');
+                    },
+                    function (error) {
+                        res.sendStatus(400).send(error);
+                    }
+                );
+            //res.send('0');
         }
 
     function findUserById(req,res) {
         //console.log("Inside ind user by id")
         var userId = req.params.userId;
         for( var u in users){
-            //console.log(users[u]);
+            //console.log(user[u]);
             if(users[u]._id === userId.toString()){
                 user = users[u];
                 res.send(user);
@@ -92,22 +115,40 @@ module.exports = function(app){
     function updateUser(req, res){
         var user = req.body;
         var uid = req.params.userId;
-        for(var u in users){
-            if(users[u]._id == uid.toString()){
-                users[u] = user;
-            }
-        }
+        model
+            .userModel
+            .updateUser(uid, user)
+            .then(function (status) {
+                res.send(200);
+            },
+            function (error) {
+                res.sendStatus(400).send(error);
+            })
+        // for(var u in user){
+        //     if(user[u]._id == uid.toString()){
+        //         user[u] = user;
+        //     }
+        // }
         res.send('0');
     }
 
     function deleteUser(req, res){
         var uid = req.params.userId;
-        for(var u in users){
-            if(users[u]._id == uid.toString()){
-                users.splice(u, 1);
-                res.send(200);
-            }
-        }
+        model.userModel.deleteUser(uid)
+            .then(
+                function (status) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            )
+        // for(var u in user){
+        //     if(user[u]._id == uid.toString()){
+        //         user.splice(u, 1);
+        //         res.send(200);
+        //     }
+        // }
         //res.send('0');
     }
 }
