@@ -39,14 +39,15 @@ module.exports = function () {
     }
     function findWebsitesForUser(userId) {
         return WebsiteModel.find({
-            developerId:userId
+            _user:userId
         });
     }
 
-    function updateWebsite(website) {
+    function updateWebsite(websiteId, website) {
+        //console.log(website);
         return WebsiteModel.update(
             {
-                _id: website._id
+                _id: websiteId
             },
             {
                 $set: website

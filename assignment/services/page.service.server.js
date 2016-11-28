@@ -30,7 +30,7 @@ module.exports = function (app, model) {
         PageModel
             .createPage(websiteId, page)
             .then(function (page) {
-                    console.log(page);
+                    //console.log(page);
                     res.send(page);
                 },
                 function (error) {
@@ -54,7 +54,7 @@ module.exports = function (app, model) {
 
     function updatePage(req, res){
         var page = req.body;
-        console.log(page);
+        //console.log(page);
         var pageId = req.params.pageId;
         PageModel
             .updatePage(pageId,page)

@@ -57,6 +57,8 @@
         function createWidget(pageId, widget) {
 
             var url = '/api/page/'+pageId+'/widget';
+            //console.log(widget);
+            //console.log(url);
             return $http.post(url,widget);
 
             //

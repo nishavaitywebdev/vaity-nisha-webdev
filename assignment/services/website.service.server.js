@@ -28,14 +28,14 @@ module.exports = function(app, model){
         //id = id.substring(-2);
 
         //website._id = id;
-        website.developerId = userId;
+        website._user = userId;
         // websites.push(website);
         // res.send(userId);
         WebsiteModel
             .createWebsite(userId, website)
             .then(function (website) {
                 //console.log(website);
-                res.send(200);
+                res.sendStatus(200);
             },
             function (error) {
                 res.sendStatus(400).send(error);
@@ -64,7 +64,7 @@ module.exports = function(app, model){
             .updateWebsite(websiteId, website)
             .then(function (data) {
                     //console.log(website);
-                    res.send(200);
+                    res.sendStatus(200);
                 },
                 function (error) {
                     res.sendStatus(400).send(error);

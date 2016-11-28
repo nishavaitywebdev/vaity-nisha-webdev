@@ -22,7 +22,7 @@ module.exports = function () {
     }
 
     function createPage(websiteId, page) {
-        page.websiteId = websiteId;
+        page._website = websiteId;
         return PageModel.create(page);
     }
 
@@ -31,14 +31,14 @@ module.exports = function () {
     }
     function findPagesForWebsite(websiteId) {
         return PageModel.find({
-            websiteId:websiteId
+            _website:websiteId
         });
     }
 
-    function updatePage(page) {
+    function updatePage(pageId,page) {
         return PageModel.update(
             {
-                _id: page._id
+                _id: pageId
             },
             {
                 $set: page

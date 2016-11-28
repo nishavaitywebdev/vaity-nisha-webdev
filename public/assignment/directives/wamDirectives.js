@@ -8,8 +8,9 @@
     
     
     function wamSortable() {
-        console.log("Hi from wam sortable");
-
+        //console.log("Hi from wam sortable");
+        var vm = this;
+        //var pageId = vm.pageId;
         function linker(scope,element,attributes) {
             var start = -1;
             var stop = -1;

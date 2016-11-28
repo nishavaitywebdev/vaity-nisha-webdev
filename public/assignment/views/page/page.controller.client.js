@@ -40,8 +40,8 @@
         function updatePage(pageId, page) {
             var promise = PageService.updatePage(pageId, page);
             promise
-                .success(function (websiteId) {
-                    $location.url("/user/"+ vm.userId+"/website/"+ websiteId+"/page");
+                .success(function (data) {
+                    $location.url("/user/"+ vm.userId+"/website/"+ vm.websiteId+"/page");
                     })
                 .error(function(){
 
@@ -52,9 +52,9 @@
         function deletePage(pid){
             var promise = PageService.deletePage(pid);
             promise
-                .success(function (websiteId) {
-                    if(websiteId != '0'){
-                        $location.url("/user/"+vm.userId+"/website/"+websiteId+"/page");
+                .success(function (data) {
+                    if(data != '0'){
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
                     }
                 })
                 .error(function(){

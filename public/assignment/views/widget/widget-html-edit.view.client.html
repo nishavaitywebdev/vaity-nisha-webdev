@@ -1,0 +1,22 @@
+<div class="container-fluid padding-navbar">
+    <div class="div-website-list">
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input ng-model="model.widget.widgetType"
+                       type="text"
+                       class="form-control"
+                       id="name"
+                       placeholder="Widget name"/>
+            </div>
+            <div class="form-group">
+                <label for="text">Text</label>
+                <input ng-model="model.widget.text"
+                       type="text"
+                       class="form-control"
+                       id="text"/>
+            </div>
+            <a ng-click="model.deleteWidget(model.widget._id)" class="btn btn-danger btn-block">Delete</a>
+        </form>
+    </div>
+</div>

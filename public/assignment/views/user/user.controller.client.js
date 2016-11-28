@@ -80,6 +80,7 @@
             function updateUser(userId,user){
                 UserService.updateUser(userId,user)
                     .success(function(user){
+                        //console.log(user);
                         if(user != '0'){
                             vm.user = user;
 

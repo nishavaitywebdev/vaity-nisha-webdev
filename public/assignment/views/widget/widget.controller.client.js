@@ -20,6 +20,7 @@
             var promise = WidgetService.findWidgetByPageId(vm.pageId);
             promise
                 .success(function (widgets) {
+                    console.log(widgets);
                 vm.widgets = widgets;
                     // var widgets = $(".wam-widgets")
                     //     .sortable({
@@ -35,8 +36,8 @@
         function checkSafeHtml(html){
             return $sce.trustAsHtml(html);
         }
-        function checkSafeYoutubeUrl(url){
-            var parts = url.split("/");
+        function checkSafeYoutubeUrl(url1){
+            var parts = url1.split("/");
             var id  = parts[parts.length - 1];
             var url = "https://www.youtube.com/embed/"+id; //check proper url and syntax
             return $sce.trustAsResourceUrl(url);
@@ -54,17 +55,17 @@
         //vm.widgetId = $routeParams.wgid;
         vm.createNewWidget = createNewWidget;
         function createNewWidget(widget) {
-
+            //console.log(widget);
             var promise = WidgetService.createWidget(vm.pageId,widget);
             promise
                 .success(function(widget){
-                    console.log(widget);
+                    //console.log(widget);
                     if(widget != null){
-                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+widget.pageId+"/widget/"+ widget._id);
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+widget._page+"/widget/"+ widget._id);
                     }
                 })
-                .error(function(){
-
+                .error(function(error){
+                    console.log(error);
                 });
 
 
@@ -111,14 +112,15 @@
 
         function updateWidget(widgetId,widget){
             //console.log(widget);
-
             var promise = WidgetService.updateWidget(widgetId,widget);
-            promise
-                .success(function (pageId) {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+pageId+"/widget");
-                })
-                .error(function(){
 
+            promise
+                .success(function (data) {
+                   //console.log(vm.pageId);
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                })
+                .error(function(error){
+                    console.log(error);
                 });
 
 
@@ -130,8 +132,8 @@
 
             var promise = WidgetService.deleteWidget(widgetId);
             promise
-                .success(function (pageId) {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+pageId+"/widget");
+                .success(function (data) {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
                 })
                 .error(function(){
 

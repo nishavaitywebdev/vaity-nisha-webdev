@@ -5,10 +5,11 @@ module.exports =function () {
     var mongoose = require("mongoose");
     var PageSchema = require("../page/page.schema.server")(mongoose);
     var WebsiteSchema = mongoose.Schema({
-        developerId:{type: mongoose.Schema.ObjectId, ref:"UserModel"},
+        _user:{type: mongoose.Schema.ObjectId, ref:"UserModel"},
         name: String,
         description: String,
-        pages:[PageSchema]
+        pages: [PageSchema],
+        dateCreated: {type: Date, default: Date.now}
 
     }, {collection: 'website'})
 

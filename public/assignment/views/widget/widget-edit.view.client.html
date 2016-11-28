@@ -10,7 +10,7 @@
             <a  href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">
                 <span class="navbar-text-decor">Widgets</span>
             </a>
-            <a ng-click="model.updateWidget(model.widget._id,{'text':model.widget.text,'size':model.widget.size,'widgetType':'HEADER'})" class="navbar-link">
+            <a ng-click="model.updateWidget(model.widget._id,{'name':model.widget.name,'text':model.widget.text,'size':model.widget.size,'widgetType':'HEADER'})" class="navbar-link">
           <span class="glyphicon glyphicon-ok white-glyphicon pull-right">
                       </span>
                         </a>
@@ -24,7 +24,7 @@
                     <a  href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">
                         <span class="navbar-text-decor">Widgets</span>
                     </a>
-                    <a ng-click="model.updateWidget(model.widget._id,{'text':model.widget.text,'url':model.widget.url,'width':model.widget.width,'widgetType':'IMAGE'})" class="navbar-link">
+                    <a ng-click="model.updateWidget(model.widget._id,{'name':model.widget.name,'text':model.widget.text,'url':model.widget.url,'width':model.widget.width,'widgetType':'IMAGE'})" class="navbar-link">
           <span class="glyphicon glyphicon-ok white-glyphicon pull-right">
                       </span>
                         </a>
@@ -38,15 +38,41 @@
                     <a  href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">
                         <span class="navbar-text-decor">Widgets</span>
                     </a>
-                    <a ng-click="model.updateWidget(model.widget._id,{'text':model.widget.text,'url':model.widget.url,'width':model.widget.width,'widgetType':'YOUTUBE'})" class="navbar-link">
+                    <a ng-click="model.updateWidget(model.widget._id,{'name':model.widget.name,'text':model.widget.text,'url':model.widget.url,'width':model.widget.width,'widgetType':'YOUTUBE'})" class="navbar-link">
           <span class="glyphicon glyphicon-ok white-glyphicon pull-right">
                       </span>
                         </a>
                 </div>
-                </div>
-            <a ng-click="model.updateWidget(model.widget._id,{'text':model.widget.text,'size':model.widget.size,'widgetType':'HEADER'})" class="">
 
-            </a>
+                <div ng-switch-when="HTML">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-chevron-left white-glyphicon ">
+                </span>
+                    </a>
+                    <a  href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">
+                        <span class="navbar-text-decor">Widgets</span>
+                    </a>
+                    <a ng-click="model.updateWidget(model.widget._id,{'name':model.widget.name,'text':model.widget.text,'widgetType':'HTML'})" class="navbar-link">
+          <span class="glyphicon glyphicon-ok white-glyphicon pull-right">
+                      </span>
+                    </a>
+                </div>
+
+                <div ng-switch-when="TEXT">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-chevron-left white-glyphicon ">
+                </span>
+                    </a>
+                    <a  href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">
+                        <span class="navbar-text-decor">Widgets</span>
+                    </a>
+                    <a ng-click="model.updateWidget(model.widget._id,{'name':model.widget.name,'text':model.widget.text, 'rows':model.widget.rows,'widgetType':'TEXT', 'placeholder': model.widget.placeholder,'formatted':model.widget.formatted})" class="navbar-link">
+          <span class="glyphicon glyphicon-ok white-glyphicon pull-right">
+                      </span>
+                    </a>
+                </div>
+
+            </div>
         </div>
     </div>
 </nav>
@@ -59,6 +85,12 @@
     </div>
     <div ng-switch-when="YOUTUBE">
         <ng-include src="'views/widget/widget-youtube.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="HTML">
+        <ng-include src="'views/widget/widget-html-edit.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="TEXT">
+        <ng-include src="'views/widget/widget-text.view.client.html'"></ng-include>
     </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">

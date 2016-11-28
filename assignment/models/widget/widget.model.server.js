@@ -2,7 +2,6 @@
  * Created by nishavaity on 11/26/16.
  */
 module.exports = function () {
-    var model = {};
     var mongoose = require("mongoose");
     var WidgetSchema = require("./Widget.schema.server")();
     var WidgetModel = mongoose.model("WidgetModel", WidgetSchema);
@@ -17,14 +16,14 @@ module.exports = function () {
     };
     return api;
 
-    function createWidget(pageId) {
-        widget.pageId = pageId;
+    function createWidget(widget) {
+
         return WidgetModel.create(widget);
     }
     
     function findAllWidgetsForPage(pageId) {
         return WidgetModel.find({
-            pageId: pageId
+            _page: pageId
         });
     }
 

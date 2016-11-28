@@ -6,42 +6,43 @@ module.exports = function (app, model) {
     var upload = multer({ dest: __dirname+'/../../public/assignment/uploads' });
 
     var WidgetModel = model.widgetModel;
+    var PageModel = model.pageModel;
 
-    var widgets = [
-        // { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 1, "text": "GIZMODO"},
-        // { "_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 3, "text": "Us Senate Reaches Compromise on Emergency Zika Funding"},
-        // { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-        //     "url": "http://www.thoughtmechanics.com/wp-content/uploads/2015/10/websitedesign.jpg"},
-        // { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": " <h4>Contrary to popular belief, Richard McClintock, a Latin <b>professor at Hampden-Sydney College in Virginia</b>,</a>looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature</h4>"},
-        // { "_id": "567", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "Man in a wingsuit flies straight Through a ring of fire"},
-        // { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-        //     "url": "https://www.youtube.com/embed/jJ2ht5DDgp4" },
-        // { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"},
-
-        //user alice- testing
-        { "_id": "121", "widgetType": "HEADER", "pageId": "3221", "size": 1, "text": "GIZMODO"},
-        { "_id": "241", "widgetType": "HEADER", "pageId": "3221", "size": 3, "text": "Us Senate Reaches Compromise on Emergency Zika Funding"},
-        { "_id": "451", "widgetType": "IMAGE", "pageId": "3221", "width": "100%",
-            "url": "http://www.thoughtmechanics.com/wp-content/uploads/2015/10/websitedesign.jpg"},
-        { "_id": "41", "widgetType": "HTML", "pageId": "3221", "text": " It is a viral video recorded by the Scottish actor Peter Capaldi (pictured) and sent to Thomas Goodall, an autistic nine-year-old who was grieving over the death of his grandmother. Thomas's father Ross posted the video to YouTube on 6 November 2014 so that his whole family could see it, but the video had wide appeal, and was viewed more than 200,000 times over the next 48 hours. Less than a week later it had over 900,000 "},
-        { "_id": "561", "widgetType": "HEADER", "pageId": "3221", "size": 2, "text": "Man in a wingsuit flies straight Through a ring of fire"},
-        { "_id": "67", "widgetType": "YOUTUBE", "pageId": "3221", "width": "100%",
-            "url": "https://www.youtube.com/embed/jJ2ht5DDgp4" },
-        { "_id": "78", "widgetType": "HTML", "pageId": "3221", "text": "<p>Lorem ipsum</p>"}
-        // //
-        // //user
-        // { "_id": "1232", "widgetType": "HEADER", "pageId": "4312", "size": 1, "text": "GIZMODO"},
-        // { "_id": "2342", "widgetType": "HEADER", "pageId": "4312", "size": 3, "text": "Us Senate Reaches Compromise on Emergency Zika Funding"},
-        // { "_id": "3452", "widgetType": "IMAGE", "pageId": "4312", "width": "100%",
-        //     "url": "http://www.thoughtmechanics.com/wp-content/uploads/2015/10/websitedesign.jpg"},
-        // { "_id": "4562", "widgetType": "HTML", "pageId": "4312", "text": " <h4>Contrary to popular belief, Richard McClintock, a Latin <b>professor at Hampden-Sydney College in Virginia</b>,</a>looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature</h4>"},
-        // { "_id": "5672", "widgetType": "HEADER", "pageId": "4312", "size": 2, "text": "Man in a wingsuit flies straight Through a ring of fire"},
-        // { "_id": "6782", "widgetType": "YOUTUBE", "pageId": "4312", "width": "100%",
-        //     "url": "https://www.youtube.com/embed/jJ2ht5DDgp4" },
-        // { "_id": "7892", "widgetType": "HTML", "pageId": "4312", "text": "<p>Lorem ipsum</p>"}
-
-
-    ];
+    // var widgets = [
+    //     // { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 1, "text": "GIZMODO"},
+    //     // { "_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 3, "text": "Us Senate Reaches Compromise on Emergency Zika Funding"},
+    //     // { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
+    //     //     "url": "http://www.thoughtmechanics.com/wp-content/uploads/2015/10/websitedesign.jpg"},
+    //     // { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": " <h4>Contrary to popular belief, Richard McClintock, a Latin <b>professor at Hampden-Sydney College in Virginia</b>,</a>looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature</h4>"},
+    //     // { "_id": "567", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "Man in a wingsuit flies straight Through a ring of fire"},
+    //     // { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
+    //     //     "url": "https://www.youtube.com/embed/jJ2ht5DDgp4" },
+    //     // { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"},
+    //
+    //     //user alice- testing
+    //     // { "_id": "121", "widgetType": "HEADER", "pageId": "3221", "size": 1, "text": "GIZMODO"},
+    //     // { "_id": "241", "widgetType": "HEADER", "pageId": "3221", "size": 3, "text": "Us Senate Reaches Compromise on Emergency Zika Funding"},
+    //     // { "_id": "451", "widgetType": "IMAGE", "pageId": "3221", "width": "100%",
+    //     //     "url": "http://www.thoughtmechanics.com/wp-content/uploads/2015/10/websitedesign.jpg"},
+    //     // { "_id": "41", "widgetType": "HTML", "pageId": "3221", "text": " It is a viral video recorded by the Scottish actor Peter Capaldi (pictured) and sent to Thomas Goodall, an autistic nine-year-old who was grieving over the death of his grandmother. Thomas's father Ross posted the video to YouTube on 6 November 2014 so that his whole family could see it, but the video had wide appeal, and was viewed more than 200,000 times over the next 48 hours. Less than a week later it had over 900,000 "},
+    //     // { "_id": "561", "widgetType": "HEADER", "pageId": "3221", "size": 2, "text": "Man in a wingsuit flies straight Through a ring of fire"},
+    //     // { "_id": "67", "widgetType": "YOUTUBE", "pageId": "3221", "width": "100%",
+    //     //     "url": "https://www.youtube.com/embed/jJ2ht5DDgp4" },
+    //     // { "_id": "78", "widgetType": "HTML", "pageId": "3221", "text": "<p>Lorem ipsum</p>"}
+    //     // //
+    //     // //user
+    //     // { "_id": "1232", "widgetType": "HEADER", "pageId": "4312", "size": 1, "text": "GIZMODO"},
+    //     // { "_id": "2342", "widgetType": "HEADER", "pageId": "4312", "size": 3, "text": "Us Senate Reaches Compromise on Emergency Zika Funding"},
+    //     // { "_id": "3452", "widgetType": "IMAGE", "pageId": "4312", "width": "100%",
+    //     //     "url": "http://www.thoughtmechanics.com/wp-content/uploads/2015/10/websitedesign.jpg"},
+    //     // { "_id": "4562", "widgetType": "HTML", "pageId": "4312", "text": " <h4>Contrary to popular belief, Richard McClintock, a Latin <b>professor at Hampden-Sydney College in Virginia</b>,</a>looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature</h4>"},
+    //     // { "_id": "5672", "widgetType": "HEADER", "pageId": "4312", "size": 2, "text": "Man in a wingsuit flies straight Through a ring of fire"},
+    //     // { "_id": "6782", "widgetType": "YOUTUBE", "pageId": "4312", "width": "100%",
+    //     //     "url": "https://www.youtube.com/embed/jJ2ht5DDgp4" },
+    //     // { "_id": "7892", "widgetType": "HTML", "pageId": "4312", "text": "<p>Lorem ipsum</p>"}
+    //
+    //
+    // ];
 
 
     app.post("/api/page/:pageId/widget", createWidget);
@@ -55,7 +56,10 @@ module.exports = function (app, model) {
     function sort(req,res) {
         var start = req.query.start;
         var stop = req.query.end;
-        widgets.splice(stop,0,widgets.splice(start,1)[0]);
+        var pageId = req.query.pageId;
+        var widgets = WidgetModel.findAllWidgetsForPage(pageId);
+        var newList = widgets.splice(stop,0,widgets.splice(start,1)[0]);
+        PageModel.update({_id: pageId},{widgets: newList});
         //console.log(widgets);
     }
 
@@ -66,11 +70,11 @@ module.exports = function (app, model) {
         // id = id.substring(-2);
         //
         // widget._id = id;
-        //widget.pageId = pageId.toString();
+        widget._page = pageId.toString();
+        //console.log(widget);
         WidgetModel
-            .createWidget(widgetId)
+            .createWidget(widget)
             .then(function (widget) {
-                    //console.log(website);
                     res.send(widget);
                 },
                 function (error) {
@@ -101,9 +105,9 @@ module.exports = function (app, model) {
         var widgetId = req.params.widgetId;
         WidgetModel
             .updateWidget(widgetId, widget)
-            .then(function (data) {
+            .then(function (widget) {
                     //console.log(website);
-                    res.send(200);
+                    res.sendStatus(200);
                 },
                 function (error) {
                     res.sendStatus(400).send(error);
@@ -116,16 +120,16 @@ module.exports = function (app, model) {
             .deleteWidget(widgetId)
             .then(
                 function(data) {
-                    res.send(200);
+                    res.sendStatus(200);
                 },
                 function(error) {
-                    res.statusCode(400).send(error);
+                    res.sendStatus(400).send(error);
                 }
             )
     }
 
     function findAllWidgetsForPage(req,res) {
-        var pageId = req.params.pid;
+        var pageId = req.params.pageId;
         WidgetModel
             .findAllWidgetsForPage(pageId)
             .then(
@@ -133,14 +137,12 @@ module.exports = function (app, model) {
                     res.send(widgets);
                 },
                 function(error) {
-                    res.statusCode(400).send(error);
+                    res.sendStatus(400).send(error);
                 }
             )
     }
 
     function uploadImage(req, res) {
-
-
         var widgetId      = req.body.widgetId;
         var width         = req.body.width;
         var myFile        = req.file;
@@ -153,17 +155,25 @@ module.exports = function (app, model) {
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
-        for (var w in widgets){
-            if(widgets[w]._id == widgetId){
-                widgets[w].width = width;
-                widgets[w].url = "/assignment/uploads/" + filename;
 
-                var pageId = widgets[w].pageId;
+        // for (var w in widgets){
+        //     if(widgets[w]._id == widgetId){
+        var widget ={};
+        widget["url"] = "/assignment/uploads/" + filename;
+        widget["width"] = width;
+        //widget = widgetId;
+        var pageId        = req.body.pageId;
+        WidgetModel
+            .updateWidget(widgetId, widget)
+            .then(function (widget) {
+                    //console.log(website);
+                    res.redirect("/assignment/#/user/" + userId + "/website/"+ websiteId + "/page/" + pageId + "/widget/" + widgetId);
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                });
 
-                res.redirect("/assignment/#/user/" + userId + "/website/"+ websiteId + "/page/" + pageId + "/widget/" + widgetId);
-            }
-        }
     }
-
-
+    //     }
+    // }
 };

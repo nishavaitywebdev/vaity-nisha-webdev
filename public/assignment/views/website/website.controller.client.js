@@ -97,10 +97,8 @@
 
             var promise = WebsiteService.updateWebsite(websiteId, website);
             promise
-                .success(function(userId){
-                   if(userId != '0'){
-                       $location.url("/user/"+ userId +"/website");
-                   }
+                .success(function(data){
+                   $location.url("/user/"+ vm.userId +"/website");
                 })
                 .error(function(){
 
@@ -113,9 +111,9 @@
 
             var promise = WebsiteService.deleteWebsite(websiteId);
             promise
-                .success(function(userId){
-                    if(userId != '0'){
-                        $location.url("/user/"+ userId +"/website");
+                .success(function(data){
+                    if(data != '0'){
+                        $location.url("/user/"+ vm.userId +"/website");
                     }
                 })
                 .error(function(){
