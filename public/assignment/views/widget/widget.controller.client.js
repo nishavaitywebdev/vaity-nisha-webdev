@@ -20,7 +20,7 @@
             var promise = WidgetService.findWidgetByPageId(vm.pageId);
             promise
                 .success(function (widgets) {
-                    console.log(widgets);
+                    //console.log(widgets);
                 vm.widgets = widgets;
                     // var widgets = $(".wam-widgets")
                     //     .sortable({
@@ -60,6 +60,7 @@
             promise
                 .success(function(widget){
                     //console.log(widget);
+                    //console.log(vm.pageId);
                     if(widget != null){
                         $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+widget._page+"/widget/"+ widget._id);
                     }

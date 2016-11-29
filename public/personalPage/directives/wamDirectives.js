@@ -9,7 +9,7 @@
     
     function wamSortable() {
         //console.log("Hi from wam sortable");
-        //var vm = this;
+        var vm = this;
         //var pageId = vm.pageId;
         function linker(scope,element,attributes) {
             var start = -1;
@@ -34,12 +34,12 @@
         }
     }
 
-    function wamSortableController($routeParams,WidgetService) {
+    function wamSortableController(WidgetService) {
         var vm  =this;
         vm.sort = sort;
         
         function sort(start, stop) {
-            WidgetService.sort($routeParams.pid,start,stop);
+            WidgetService.sort(start,stop);
         }
     }
 })();

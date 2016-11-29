@@ -13,13 +13,13 @@ module.exports = function () {
         findUserByCredentials:findUserByCredentials,
         updateUser : updateUser,
         deleteUser : deleteUser,
-        SetModel: setModel,
+        setModel: setModel,
         findWebsitesForUser: findWebsitesForUser
     };
     return api;
 
 
-    function setModel() {
+    function setModel(_model) {
         model = _model;
     }
 
@@ -73,8 +73,9 @@ module.exports = function () {
     
     function findWebsitesForUser(userId) {
         return UserModel.findById(userId)
-            .populate("websites")
-            .exec();
+            .then(function(user){
+                return user.websites;
+            });
             // .then(function(user){
             //     return user.websites;
             //});

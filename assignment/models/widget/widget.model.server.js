@@ -3,8 +3,11 @@
  */
 module.exports = function () {
     var mongoose = require("mongoose");
-    var WidgetSchema = require("./Widget.schema.server")();
+    var WidgetSchema = require("./widget.schema.server")();
+    //var PageSchema = require("../page/page.schema.server")();
     var WidgetModel = mongoose.model("WidgetModel", WidgetSchema);
+    //var PageModel = mongoose.model("PageModel", PageSchema);
+    var model = {};
     // var UserModel = mongoose.model("UserModel",UserSchema);
     var api = {
         createWidget: createWidget,
@@ -12,13 +15,28 @@ module.exports = function () {
         findWidgetById: findWidgetById,
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
-        sort: sort
+        sortWidgets: sortWidgets,
+        setModel: setModel
     };
     return api;
 
-    function createWidget(widget) {
+    function createWidget(pageId,widget){
+        //widget._page = pageId;
+        return WidgetModel.create(widget)
+            .then(function(widgetObject){
+                return model.pageModel.findPageById(pageId)
+                    .then(function(pageObject){
+                            widgetObject._page = pageObject._id;
+                            widgetObject.save();
+                            pageObject.widgets.push(widgetObject);
+                            pageObject.save();
+                            return widgetObject.save();
 
-        return WidgetModel.create(widget);
+                        },
+                        function(error){
+                            console.log(error);
+                        });
+            });
     }
     
     function findAllWidgetsForPage(pageId) {
@@ -45,17 +63,81 @@ module.exports = function () {
     }
 
     function deleteWidget(widgetId) {
-        return WidgetModel.remove(
-            {
-                _id: widgetId
-            }
-        );
+        var pageId;
+        return model.widgetModel.findWidgetById(widgetId)
+            .then(function (widgetObj) {
+                pageId = widgetObj._page;
+                    model.pageModel.findPageById(pageId)
+                        .then(function (pageObj) {
+                            //console.log(widgetId);
+                            for(var w in pageObj.widgets){
+                                //console.log(pageObj.widgets[w].toString());
+                                if(pageObj.widgets[w].toString() == widgetId.toString()){
+                                    //console.log("Matched");
+                                    pageObj.widgets.splice(w,1);
+                                    pageObj.save();
+                                    break;
+                                }
+                            }
+                                return WidgetModel.remove(
+                                    {
+                                        _id: widgetId
+                                    }
+                                );
+                        },
+                        function (err) {
+                            console.log(err);
+                        })
+            },
+            function (err) {
+                console.log(err);
+            })
+
+
     }
-    function sort(widgetId, start, end) {
+    function sortWidgets(pageId, start, end) {
+        //console.log(pageId);
+        return model.widgetModel.findAllWidgetsForPage(pageId)
+            .then(function (widgetsForPage) {
+                console.log(widgetsForPage.length);
+                for(var wp in widgetsForPage){
+                    //console.log(widgetsForPage[wp]._id.toString());
+                    return model.widgetModel.remove({_id:widgetsForPage[wp]._id})
+
+                }
+                console.log(widgetsForPage.length);
+                var widget = widgetsForPage.splice(start,1)[0];
+                widgetsForPage.splice(end,0, widget);
+                console.log("After splice");
+                return model.widgetModel.insert(widgetsForPage).save();
+            });
+
+                //console.log(page.widgets);
+
+            // model
+            // .pageModel
+            // .findPageById(pageId)
+            // .then(function (page) {
+            //     console.log(page.widgets);
+            //     var widget = page.widgets.splice(start,1)[0];
+            //     page.save();
+            //     page.widgets.splice(end,0,widget);
+            //     page.save();
+            //     console.log(page.widgets);
+            //     return page.save();
+            // },
+            // function (error) {
+            //     console.log(error);
+            // });
         // var start = req.query.start;
         // var stop = req.query.end;
         // widgets.splice(stop,0,widgets.splice(start,1)[0]);
         // //console.log(widgets);
     }
+
+    function setModel(_model) {
+        model = _model;
+    }
+
 
 };

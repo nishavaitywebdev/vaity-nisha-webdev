@@ -108,8 +108,8 @@
             var promise = PageService.createPage(websiteId,page);
             promise
                 .success(function(data){
-                    if(data != ''){
-                        $location.url("/user/"+vm.userId+"/website/"+websiteId+"/page");
+                    if(data != '0'){
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
                     }
                 })
                 .error(function(){

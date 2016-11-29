@@ -6,7 +6,7 @@ module.exports = function (app, model) {
     var upload = multer({ dest: __dirname+'/../../public/assignment/uploads' });
 
     var WidgetModel = model.widgetModel;
-    var PageModel = model.pageModel;
+   // var PageModel = model.pageModel;
 
     // var widgets = [
     //     // { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 1, "text": "GIZMODO"},
@@ -51,38 +51,46 @@ module.exports = function (app, model) {
     app.get("/api/widget/:widgetId", findWidgetById);
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
-    app.put("/api/assignment", sort);
+    app.put("/api/page/:pid/widget",sort);
 
     function sort(req,res) {
-        var start = req.query.start;
-        var stop = req.query.end;
-        var pageId = req.query.pageId;
-        var widgets = WidgetModel.findAllWidgetsForPage(pageId);
-        var newList = widgets.splice(stop,0,widgets.splice(start,1)[0]);
-        PageModel.update({_id: pageId},{widgets: newList});
+        var pageId = req.params.pid;
+        var start = parseInt(req.query.start);
+        var end = parseInt(req.query.end);
+        console.log(pageId);
+        WidgetModel
+            .sortWidgets(pageId, start, end)
+            .then(function (status) {
+                res.sendStatus(200);
+            },
+            function (error) {
+                res.sendStatus(400).send(error);
+            });
+        // var widgets = WidgetModel.findAllWidgetsForPage(pageId);
+        // var newList = widgets.splice(stop,0,widgets.splice(start,1)[0]);
+        // PageModel.update({_id: pageId},{widgets: newList});
         //console.log(widgets);
     }
 
     function createWidget(req,res){
-        var pageId = req.params.pageId;
         var widget = req.body;
+        var pageId = req.params.pageId;
         // var id = (Math.floor(100000 + Math.random() * 900000)).toString();
-        // id = id.substring(-2);
-        //
-        // widget._id = id;
-        widget._page = pageId.toString();
-        //console.log(widget);
-        WidgetModel
-            .createWidget(widget)
-            .then(function (widget) {
-                    res.send(widget);
+        //       id = id.substring(-2);
+        //       widget._id = id;
+        // widget.pageId = pageId.toString();
+        //     	widgets.push(widget);
+        //     	res.send(widget);
+
+        model.widgetModel.createWidget(pageId,widget)
+            .then(function(widget){
+                    //console.log("Widget");
+                    //console.log(widget);
+                    res.json(widget);
                 },
-                function (error) {
-                    res.sendStatus(400).send(error);
+                function(error){
+                    res.statusCode(400).send(error);
                 });
-        //website.developerId = userId;
-        // widgets.push(widget);
-        // res.send(widget);
     }
 
     function findWidgetById(req, res){

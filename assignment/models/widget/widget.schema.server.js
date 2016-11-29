@@ -7,7 +7,7 @@ module.exports =function () {
     var WidgetSchema = mongoose.Schema({
         widgetType: {type:String, enum:['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT', 'TEXT']},
         name: String,
-        _page:{type: mongoose.Schema.ObjectId, ref: "PageModel"},
+        _page:{type: mongoose.Schema.Types.ObjectId, ref: "PageModel"},
         text: String,
         placeholder: String,
         description: String,

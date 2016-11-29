@@ -22,19 +22,24 @@ module.exports = function () {
     }
     
     function createWebsite(userId, website) {
-        website.developerId = userId;
-        return WebsiteModel.create(website);
-            // .then(function (websiteObj) {
-            //     model.userModel
-            //         .findUserById(userId)
-            //         .then(function (userObj) {
-            //             userObj.websites.push(websiteObj);
-            //             return userObj.save();
-            //         })
-            // });
+        website._user = userId;
+        return WebsiteModel.create(website)
+            .then(function (websiteObj) {
+                model.userModel
+                    .findUserById(userId)
+                    .then(function (userObj) {
+                            websiteObj._user = userObj._id;
+                            websiteObj.save();
+                            userObj.websites.push(websiteObj);
+                            return userObj.save();
+                        },
+                        function(error){
+                            console.log(error);
+                        });
+            });
     }
 
-    function setModel() {
+    function setModel(_model) {
         model = _model;
     }
     function findWebsitesForUser(userId) {

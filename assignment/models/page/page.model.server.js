@@ -23,10 +23,23 @@ module.exports = function () {
 
     function createPage(websiteId, page) {
         page._website = websiteId;
-        return PageModel.create(page);
+        return PageModel.create(page)
+            .then(function (pageObj) {
+                model.websiteModel
+                    .findWebsiteById(websiteId)
+                    .then(function (websiteObj) {
+                            pageObj._website = websiteObj._id;
+                            pageObj.save();
+                            websiteObj.pages.push(pageObj);
+                            return websiteObj.save();
+                        },
+                        function(error){
+                            console.log(error);
+                        });
+            });
     }
 
-    function setModel() {
+    function setModel(_model) {
         model = _model;
     }
     function findPagesForWebsite(websiteId) {

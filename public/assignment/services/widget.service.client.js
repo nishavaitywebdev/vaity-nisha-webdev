@@ -117,11 +117,10 @@
             //console.log(widgets);
         }
         
-        function sort(start,end) {
-            var url ="/api/assignment?start=START&end=END";
-            url = url.replace("START",start)
-                .replace("END",end);
-            $http.put(url);
+        function sort(pageId, start,end) {
+            var url ="/api/page/" + pageId + "/widget?start="+start+"&end="+end;
+
+            return $http.put(url);
         }
 
     }
