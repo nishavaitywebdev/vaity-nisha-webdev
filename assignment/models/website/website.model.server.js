@@ -61,11 +61,37 @@ module.exports = function () {
     }
 
     function deleteWebsite(websiteId) {
-        return WebsiteModel.remove(
-            {
-                _id: websiteId
-            }
-        );
+
+        var userId;
+        return model.websiteModel.findWebsiteById(websiteId)
+            .then(function (websiteObj) {
+                    userId = websiteObj._user;
+                    model.userModel.findUserById(userId)
+                        .then(function (userObj) {
+                                //console.log(widgetId);
+                                for(var w in userObj.websites){
+                                    //console.log(pageObj.widgets[w].toString());
+                                    if(userObj.websites[w].toString() == websiteId.toString()){
+                                        //console.log("Matched");
+                                        userObj.websites.splice(w,1);
+                                        userObj.save();
+                                        break;
+                                    }
+                                }
+                                return WebsiteModel.remove(
+                                    {
+                                        _id: websiteId
+                                    }
+                                );
+                            },
+                            function (err) {
+                                console.log(err);
+                            })
+                },
+                function (err) {
+                    console.log(err);
+                })
+
     }
     
 }

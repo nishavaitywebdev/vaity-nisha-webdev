@@ -16,16 +16,44 @@ module.exports = function () {
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
         sortWidgets: sortWidgets,
+        delAddWidgetsOfPage:delAddWidgetsOfPage,
+        reorderWidget: reorderWidget,
         setModel: setModel
     };
     return api;
 
-    function createWidget(pageId,widget){
+
+    function delAddWidgetsOfPage(pageId, widgets) {
+        //console.log("del add widgets");
+        return model.pageModel.update({
+            _id:pageId
+        },{widgets:[]})
+            .then(function (status) {
+                console.log("updated page widgets");
+                return model.widgetModel.remove({
+                    _page:pageId
+                }).then(function (status) {
+                    console.log("Removed page widgets");
+                    for(var w in widgets){
+                        delete widgets.widgets[w]._id;
+                        delete widgets.widgets[w]._page;
+                        return model.widgetModel.createWidget(pageId, widgets[w]);
+                        console.log("Added page widget");
+                    }
+                }, function (err) {
+                    console.log(err);
+                })
+            }, function (err) {
+                console.log(err);
+            })
+    }
+
+    function createWidget(pageId, widget) {
         //widget._page = pageId;
         return WidgetModel.create(widget)
-            .then(function(widgetObject){
+            .then(function (widgetObject) {
                 return model.pageModel.findPageById(pageId)
-                    .then(function(pageObject){
+                    .then(function (pageObject) {
                             widgetObject._page = pageObject._id;
                             widgetObject.save();
                             pageObject.widgets.push(widgetObject);
@@ -33,16 +61,46 @@ module.exports = function () {
                             return widgetObject.save();
 
                         },
-                        function(error){
+                        function (error) {
                             console.log(error);
                         });
             });
     }
-    
+
     function findAllWidgetsForPage(pageId) {
         return WidgetModel.find({
             _page: pageId
         });
+    }
+
+    // return model.pageModel.findPageById({
+    //     _id: pageId
+    // })
+    //     .then(function (page) {
+    //         var widgets = [];
+    //         //console.log(page.widgets);
+    //         for (var w =0; w< page.widgets.length; w++){
+    //             model.widgetModel.findWidgetById(page.widgets[w])
+    //                 .then(function (wig) {
+    //                     widgets.push(wig);
+    //                 },
+    //                 function (err) {
+    //                     console.log(err)
+    //                 });
+    //             //widgets.push(model.widgetModel.findWidgetById(page.widgets[w]));
+    //         }
+    //         return widgets;
+    //     },
+    //     function (err) {
+    //         console.log(err);
+    //     });
+    //console.log(widgets);
+    //return widgets;
+//}
+
+    function reorderWidget(pageId, start, end) {
+        //console.log("Inside widget model sort: "+ pageId);
+        return model.pageModel.reorderWidgetForPage(pageId, start, end);
     }
 
     function findWidgetById(widgetId) {
@@ -92,26 +150,28 @@ module.exports = function () {
             function (err) {
                 console.log(err);
             })
-
-
     }
     function sortWidgets(pageId, start, end) {
         //console.log(pageId);
-        return model.widgetModel.findAllWidgetsForPage(pageId)
-            .then(function (widgetsForPage) {
-                console.log(widgetsForPage.length);
-                for(var wp in widgetsForPage){
-                    //console.log(widgetsForPage[wp]._id.toString());
-                    return model.widgetModel.remove({_id:widgetsForPage[wp]._id})
-
-                }
-                console.log(widgetsForPage.length);
-                var widget = widgetsForPage.splice(start,1)[0];
-                widgetsForPage.splice(end,0, widget);
-                console.log("After splice");
-                return model.widgetModel.insert(widgetsForPage).save();
-            });
-
+        return model
+        .widgetModel
+        .findAllWidgetsForPage(pageId)
+        .then(function (widgets) {
+            //console.log("In sort widgets");
+            var widget = widgets.splice(start,1)[0];
+            widgets.splice(end,0,widget);
+            //console.log(widgets);
+            return model.widgetModel.delAddWidgetsOfPage(pageId, widgets)
+                .then(function (status) {
+                    console.log("Inside success of del add widgets");
+                },
+                function (err) {
+                    console.log("errored after del add widgets")
+                });
+        },
+        function (error) {
+            console.log(error);
+        });
                 //console.log(page.widgets);
 
             // model

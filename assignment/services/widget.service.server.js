@@ -57,15 +57,16 @@ module.exports = function (app, model) {
         var pageId = req.params.pid;
         var start = parseInt(req.query.start);
         var end = parseInt(req.query.end);
-        console.log(pageId);
+        //console.log(pageId);
         WidgetModel
-            .sortWidgets(pageId, start, end)
+            .reorderWidget(pageId, start, end)
             .then(function (status) {
                 res.sendStatus(200);
             },
             function (error) {
                 res.sendStatus(400).send(error);
             });
+
         // var widgets = WidgetModel.findAllWidgetsForPage(pageId);
         // var newList = widgets.splice(stop,0,widgets.splice(start,1)[0]);
         // PageModel.update({_id: pageId},{widgets: newList});
@@ -82,11 +83,16 @@ module.exports = function (app, model) {
         //     	widgets.push(widget);
         //     	res.send(widget);
 
-        model.widgetModel.createWidget(pageId,widget)
-            .then(function(widget){
+        return model.widgetModel.createWidget(pageId,widget)
+            .then(function(widgetObj){
                     //console.log("Widget");
                     //console.log(widget);
-                    res.json(widget);
+                    return model.pageModel
+                        .addWidgetToPage(pageId, widgetObj._id)
+                        .then(function (widgets) {
+                            // console.log("update widgets for page: "+ widgetobj.name);
+                            res.json(widgetObj);
+                        });
                 },
                 function(error){
                     res.statusCode(400).send(error);
@@ -94,7 +100,7 @@ module.exports = function (app, model) {
     }
 
     function findWidgetById(req, res){
-       // var widget;
+       //console.log("In find widget by id")
         var widgetId = req.params.widgetId;
         WidgetModel
             .findWidgetById(widgetId)
@@ -142,6 +148,7 @@ module.exports = function (app, model) {
             .findAllWidgetsForPage(pageId)
             .then(
                 function(widgets) {
+                    //console.log(widgets);
                     res.send(widgets);
                 },
                 function(error) {
