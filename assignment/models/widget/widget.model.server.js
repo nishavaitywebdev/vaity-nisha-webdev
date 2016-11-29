@@ -4,20 +4,16 @@
 module.exports = function () {
     var mongoose = require("mongoose");
     var WidgetSchema = require("./widget.schema.server")();
-    //var PageSchema = require("../page/page.schema.server")();
     var WidgetModel = mongoose.model("WidgetModel", WidgetSchema);
-    //var PageModel = mongoose.model("PageModel", PageSchema);
     var model = {};
-    // var UserModel = mongoose.model("UserModel",UserSchema);
     var api = {
         createWidget: createWidget,
         findAllWidgetsForPage: findAllWidgetsForPage,
         findWidgetById: findWidgetById,
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
-        sortWidgets: sortWidgets,
         delAddWidgetsOfPage:delAddWidgetsOfPage,
-        reorderWidget: reorderWidget,
+        sortWidget: sortWidget,
         setModel: setModel
     };
     return api;
@@ -25,9 +21,14 @@ module.exports = function () {
 
     function delAddWidgetsOfPage(pageId, widgets) {
         //console.log("del add widgets");
-        return model.pageModel.update({
-            _id:pageId
-        },{widgets:[]})
+        return model.pageModel.updatePage(pageId,{
+            "name" : "page4",
+            "title" : "page4",
+            "_website" : ObjectId("583cc6071a52590d99ff3c65"),
+            "dateCreated" : ISODate("2016-11-29T05:01:35.401Z"),
+            "widgets" : [
+            ]
+        })
             .then(function (status) {
                 console.log("updated page widgets");
                 return model.widgetModel.remove({
@@ -49,58 +50,24 @@ module.exports = function () {
     }
 
     function createWidget(pageId, widget) {
-        //widget._page = pageId;
-        return WidgetModel.create(widget)
-            .then(function (widgetObject) {
-                return model.pageModel.findPageById(pageId)
-                    .then(function (pageObject) {
-                            widgetObject._page = pageObject._id;
-                            widgetObject.save();
-                            pageObject.widgets.push(widgetObject);
-                            pageObject.save();
-                            return widgetObject.save();
 
-                        },
-                        function (error) {
-                            console.log(error);
-                        });
+        widget.dateCreated = new Date();
+        widget._page = pageId;
+        return WidgetModel
+            .create(widget)
+            .then(function (widgetObj) {
+                return widgetObj;
             });
+
     }
 
     function findAllWidgetsForPage(pageId) {
-        return WidgetModel.find({
-            _page: pageId
-        });
+        return model.pageModel.findAllWidgetsForPage(pageId);
     }
 
-    // return model.pageModel.findPageById({
-    //     _id: pageId
-    // })
-    //     .then(function (page) {
-    //         var widgets = [];
-    //         //console.log(page.widgets);
-    //         for (var w =0; w< page.widgets.length; w++){
-    //             model.widgetModel.findWidgetById(page.widgets[w])
-    //                 .then(function (wig) {
-    //                     widgets.push(wig);
-    //                 },
-    //                 function (err) {
-    //                     console.log(err)
-    //                 });
-    //             //widgets.push(model.widgetModel.findWidgetById(page.widgets[w]));
-    //         }
-    //         return widgets;
-    //     },
-    //     function (err) {
-    //         console.log(err);
-    //     });
-    //console.log(widgets);
-    //return widgets;
-//}
 
-    function reorderWidget(pageId, start, end) {
-        //console.log("Inside widget model sort: "+ pageId);
-        return model.pageModel.reorderWidgetForPage(pageId, start, end);
+    function sortWidget(pageId, start, end) {
+        return model.pageModel.sortWidgetForPage(pageId, start, end);
     }
 
     function findWidgetById(widgetId) {
@@ -151,49 +118,28 @@ module.exports = function () {
                 console.log(err);
             })
     }
-    function sortWidgets(pageId, start, end) {
-        //console.log(pageId);
-        return model
-        .widgetModel
-        .findAllWidgetsForPage(pageId)
-        .then(function (widgets) {
-            //console.log("In sort widgets");
-            var widget = widgets.splice(start,1)[0];
-            widgets.splice(end,0,widget);
-            //console.log(widgets);
-            return model.widgetModel.delAddWidgetsOfPage(pageId, widgets)
-                .then(function (status) {
-                    console.log("Inside success of del add widgets");
-                },
-                function (err) {
-                    console.log("errored after del add widgets")
-                });
-        },
-        function (error) {
-            console.log(error);
-        });
-                //console.log(page.widgets);
-
-            // model
-            // .pageModel
-            // .findPageById(pageId)
-            // .then(function (page) {
-            //     console.log(page.widgets);
-            //     var widget = page.widgets.splice(start,1)[0];
-            //     page.save();
-            //     page.widgets.splice(end,0,widget);
-            //     page.save();
-            //     console.log(page.widgets);
-            //     return page.save();
-            // },
-            // function (error) {
-            //     console.log(error);
-            // });
-        // var start = req.query.start;
-        // var stop = req.query.end;
-        // widgets.splice(stop,0,widgets.splice(start,1)[0]);
-        // //console.log(widgets);
-    }
+    // function sortWidgets(pageId, start, end) {
+    //     //console.log(pageId);
+    //     return model
+    //     .widgetModel
+    //     .findAllWidgetsForPage(pageId)
+    //     .then(function (widgets) {
+    //         //console.log("In sort widgets");
+    //         var widget = widgets.splice(start,1)[0];
+    //         widgets.splice(end,0,widget);
+    //         //console.log(widgets);
+    //         return model.widgetModel.delAddWidgetsOfPage(pageId, widgets)
+    //             .then(function (status) {
+    //                 console.log("Inside success of del add widgets");
+    //             },
+    //             function (err) {
+    //                 console.log("errored after del add widgets")
+    //             });
+    //     },
+    //     function (error) {
+    //         console.log(error);
+    //     });
+    // }
 
     function setModel(_model) {
         model = _model;

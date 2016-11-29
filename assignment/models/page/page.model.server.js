@@ -6,7 +6,6 @@ module.exports = function () {
     var mongoose = require("mongoose");
     var PageSchema = require("./page.schema.server")();
     var PageModel = mongoose.model("PageModel", PageSchema);
-    // var UserModel = mongoose.model("UserModel",UserSchema);
     var api = {
         createPage: createPage,
         findPagesForWebsite: findPagesForWebsite,
@@ -14,7 +13,7 @@ module.exports = function () {
         updatePage: updatePage,
         deletePage: deletePage,
         addWidgetToPage:addWidgetToPage,
-        reorderWidgetForPage:reorderWidgetForPage,
+        sortWidgetForPage:sortWidgetForPage,
         findAllWidgetsForPage:findAllWidgetsForPage,
         setModel: setModel
     };
@@ -24,16 +23,13 @@ module.exports = function () {
         return PageModel.findById(pageId);
     }
 
-    function reorderWidgetForPage(pageId, start, end) {
+    function sortWidgetForPage(pageId, start, end) {
         return PageModel.findById(pageId)
             .then(function (pageObj) {
-                console.log("$Page: "+pageId);
                 var widgetsForPage = pageObj.widgets;
-                pageObj.widgets.splice(end-1, 0, pageObj.widgets.splice(start-1, 1)[0]);
-                return PageModel.update({_id: pageId},{$set: {widgets: pageObj.widgets}})
+                pageObj.widgets.splice(parseInt(end), 0, pageObj.widgets.splice(parseInt(start), 1)[0]);
+                PageModel.update({_id: pageId},{$set: {widgets: pageObj.widgets}})
                     .then(function (res) {
-                        //PageModel.save();
-                        console.log(res);
                     });
             });
     }
@@ -97,7 +93,6 @@ module.exports = function () {
                         .then(function (websiteObj) {
                                 //console.log(widgetId);
                                 for(var w in websiteObj.pages){
-                                    //console.log(pageObj.widgets[w].toString());
                                     if(websiteObj.pages[w].toString() == pageId.toString()){
                                         //console.log("Matched");
                                         websiteObj.pages.splice(w,1);
@@ -118,6 +113,7 @@ module.exports = function () {
                 function (err) {
                     console.log(err);
                 })
+
     }
 
 }

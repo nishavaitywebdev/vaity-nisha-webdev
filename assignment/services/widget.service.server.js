@@ -51,7 +51,19 @@ module.exports = function (app, model) {
     app.get("/api/widget/:widgetId", findWidgetById);
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
-    app.put("/api/page/:pid/widget",sort);
+    app.put("/api/page/:pid/widget",sortWidgets);
+
+
+
+    function sortWidgets(req, res) {
+        var pageId = req.params.pid;
+        var start = req.query.start;
+        var end = req.query.end;
+        model.widgetModel
+            .sortWidget(pageId, start, end);
+        res.send('200');
+    }
+
 
     function sort(req,res) {
         var pageId = req.params.pid;
@@ -59,38 +71,24 @@ module.exports = function (app, model) {
         var end = parseInt(req.query.end);
         //console.log(pageId);
         WidgetModel
-            .reorderWidget(pageId, start, end)
+            .sortWidgets(pageId, start, end)
             .then(function (status) {
                 res.sendStatus(200);
             },
             function (error) {
                 res.sendStatus(400).send(error);
             });
-
-        // var widgets = WidgetModel.findAllWidgetsForPage(pageId);
-        // var newList = widgets.splice(stop,0,widgets.splice(start,1)[0]);
-        // PageModel.update({_id: pageId},{widgets: newList});
-        //console.log(widgets);
     }
 
     function createWidget(req,res){
         var widget = req.body;
         var pageId = req.params.pageId;
-        // var id = (Math.floor(100000 + Math.random() * 900000)).toString();
-        //       id = id.substring(-2);
-        //       widget._id = id;
-        // widget.pageId = pageId.toString();
-        //     	widgets.push(widget);
-        //     	res.send(widget);
 
         return model.widgetModel.createWidget(pageId,widget)
             .then(function(widgetObj){
-                    //console.log("Widget");
-                    //console.log(widget);
                     return model.pageModel
                         .addWidgetToPage(pageId, widgetObj._id)
                         .then(function (widgets) {
-                            // console.log("update widgets for page: "+ widgetobj.name);
                             res.json(widgetObj);
                         });
                 },
@@ -100,12 +98,10 @@ module.exports = function (app, model) {
     }
 
     function findWidgetById(req, res){
-       //console.log("In find widget by id")
         var widgetId = req.params.widgetId;
         WidgetModel
             .findWidgetById(widgetId)
             .then(function (widget) {
-                    //console.log(website);
                     res.send(widget);
                 },
                 function (error) {
@@ -115,7 +111,6 @@ module.exports = function (app, model) {
 
     function updateWidget(req, res){
         var widget = req.body;
-        //console.log(widget);
         var widgetId = req.params.widgetId;
         WidgetModel
             .updateWidget(widgetId, widget)
@@ -142,19 +137,16 @@ module.exports = function (app, model) {
             )
     }
 
-    function findAllWidgetsForPage(req,res) {
-        var pageId = req.params.pageId;
-        WidgetModel
-            .findAllWidgetsForPage(pageId)
-            .then(
-                function(widgets) {
-                    //console.log(widgets);
-                    res.send(widgets);
-                },
-                function(error) {
-                    res.sendStatus(400).send(error);
-                }
-            )
+
+        function findAllWidgetsForPage(req, res) {
+
+            var pageId = req.params.pageId;
+
+            model.pageModel.findAllWidgetsForPage(pageId)
+                .then(function (resObj) {
+                    // console.log("Total Widgets for page: "+resObj.widgets.length);
+                    res.json(resObj.widgets);
+                })
     }
 
     function uploadImage(req, res) {
@@ -171,8 +163,6 @@ module.exports = function (app, model) {
         var mimetype      = myFile.mimetype;
 
 
-        // for (var w in widgets){
-        //     if(widgets[w]._id == widgetId){
         var widget ={};
         widget["url"] = "/assignment/uploads/" + filename;
         widget["width"] = width;

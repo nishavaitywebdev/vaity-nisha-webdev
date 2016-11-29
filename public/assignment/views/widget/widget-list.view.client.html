@@ -40,7 +40,7 @@
                     </div>
             </div>
             <div ng-switch-when="YOUTUBE" class="youtube-widget">
-                <iframe width="{{widget.width}}" height="315" ng-src="{{model.checkSafeYoutubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
+                <iframe width="{{widget.width}}"  ng-src="{{model.checkSafeYoutubeUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
             </div>
             <div ng-switch-when="IMAGE">
                 <img ng-src="{{model.checkSafeImageUrl(widget.url)}}" class="img-responsive" width="{{widget.width}}" height="315">
@@ -64,7 +64,7 @@
     </div>
     </div>
 </div>
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav class="navbar navbar-default    navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="row">
             <span class="glyphicon glyphicon-play white-glyphicon pull-left"></span>
