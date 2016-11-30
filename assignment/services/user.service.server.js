@@ -10,6 +10,7 @@ module.exports = function(app,model){
         {_id: "456", email:"jannunzi@gmail.com", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
     ];
 
+
     //console.log("Inside user service server js");
     app.get('/api/user', findUser);
     // app.get('/api/user?username=username&password=password',findUserByCredentials);

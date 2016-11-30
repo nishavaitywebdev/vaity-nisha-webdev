@@ -3,7 +3,7 @@
         <form>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input ng-model="model.widget.widgetType"
+                <input ng-model="model.widget.name"
                        type="text"
                        class="form-control"
                        id="name"
@@ -11,18 +11,18 @@
             </div>
             <div class="form-group">
                 <label for="text">Text</label>
-                <input ng-model="model.widget.text"
-                       type="text"
-                       class="form-control"
-                       id="text"/>
-                <div text-angular ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+                <!--<input ng-model="model.widget.text"-->
+                       <!--type="text"-->
+                       <!--class="form-control"-->
+                       <!--id="text"/>-->
+                <div id="text" ng-model="model.widget.text" text-angular ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
                                     ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
                                     ['indent','outdent'],['html']]"></div>
-                <input
-                       placeholder="{{widget.placeholder}}" class="form-control" value="{{widget.text}}"/>
-                <textarea ng-if="!widget.formatted && (widget.rows > 1)"
-                          rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
-                          class="form-control">{{widget.text}}</textarea>
+                <!--<label for="placeholder">Placeholder</label>-->
+                <!--<input id="placeholder"-->
+                       <!--placeholder="{{widget.placeholder}}" class="form-control" value="{{widget.text}}"/>-->
+                <!--<textarea -->
+                          <!--class="form-control">{{widget.text}}</textarea>-->
             </div>
             <a ng-click="model.deleteWidget(model.widget._id)" class="btn btn-danger btn-block">Delete</a>
         </form>
