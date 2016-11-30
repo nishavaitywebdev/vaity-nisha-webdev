@@ -14,8 +14,8 @@
             function login(username,password){
                 // console.log(username);
                 // console.log(password);
-                var promise = UserService.login(username,password);
-                //var promise = UserService.findUserByCredentials(username,password);
+                //var promise = UserService.login(username,password);
+                var promise = UserService.findUserByCredentials(username,password);
                 promise
                     .success(function(user){
                         if(user === '0'){
@@ -48,7 +48,7 @@
                 UserService
                     .createUser(user)
                     .success(function(user){
-                        console.log(user);
+                        //console.log(user);
                     $location.url("user/"+user._id);
                 })
                     .error(function(){
@@ -61,7 +61,7 @@
             var vm = this;
             vm.userId = $routeParams["uid"];
 
-            console.log(vm.userId);
+            //console.log(vm.userId);
             function init() {
                 UserService.findUserById(vm.userId)
                     .success(function(user){
