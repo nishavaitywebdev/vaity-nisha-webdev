@@ -12,12 +12,36 @@ module.exports = function(app,model){
 
 
     //console.log("Inside user service server js");
+    app.post('/api/login', login);
     app.get('/api/user', findUser);
     // app.get('/api/user?username=username&password=password',findUserByCredentials);
     app.get('/api/user/:userId',findUserById);
     app.post('/api/user',createUser);
     app.put('/api/user/:userId',updateUser);
     app.delete('/api/user/:userId',deleteUser);
+
+
+    function login(req, res) {
+        var user = req.body;
+        var username, password;
+        username = user.username;
+        password = user.password;
+
+        model
+            .userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function (user) {
+                    if(user)
+                        res.json(user);
+                    else
+                        res.send('0');
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
+    }
 
         function createUser(req, res) {
             var user = req.body;

@@ -14,7 +14,8 @@
             function login(username,password){
                 // console.log(username);
                 // console.log(password);
-                var promise = UserService.findUserByCredentials(username,password);
+                var promise = UserService.login(username,password);
+                //var promise = UserService.findUserByCredentials(username,password);
                 promise
                     .success(function(user){
                         if(user === '0'){
