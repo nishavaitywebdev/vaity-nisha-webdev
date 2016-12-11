@@ -7,6 +7,24 @@
         .controller("WidgetListController", WidgetListController)
         .controller("NewWidgetController", NewWidgetController)
         .controller("EditWidgetController", EditWidgetController)
+        .controller("FlickrImageSearchController", FlickrImageSearchController)
+
+    function FlickrImageSearchController() {
+        var vm = this;
+        vm.searchPhotos = function(searchTerm) {
+            var url = "/api/flickrImage";
+            FlickrService
+                .searchPhotos(searchTerm)
+                .then(function(response) {
+                    data = response.data.replace("jsonFlickrApi(","");
+                    data = data.substring(0,data.length - 1);
+                    data = JSON.parse(data);
+                    vm.photos = data.photos;
+                });
+        }
+    }
+
+
     function WidgetListController($routeParams, WidgetService,$sce) {
         var vm = this;
         vm.userId = $routeParams.uid;
@@ -113,16 +131,23 @@
 
         function updateWidget(widgetId,widget){
             //console.log(widget);
-            var promise = WidgetService.updateWidget(widgetId,widget);
+            if(widget == undefined)
+                vm.alert = "Widget name required";
+            else if (!widget.name) {
+                vm.alert = "Widget name required";
+            }
+            else {
+                var promise = WidgetService.updateWidget(widgetId, widget);
 
-            promise
-                .success(function (data) {
-                   //console.log(vm.pageId);
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
-                })
-                .error(function(error){
-                    console.log(error);
-                });
+                promise
+                    .success(function (data) {
+                        //console.log(vm.pageId);
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    })
+                    .error(function (error) {
+                        console.log(error);
+                    });
+            }
 
 
             //vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);

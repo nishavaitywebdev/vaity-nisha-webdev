@@ -24,7 +24,7 @@
         }
         init();
     }
-    function NewWebsiteController($routeParams, WebsiteService, $location) {
+    function NewWebsiteController($scope, $routeParams, WebsiteService, $location) {
         var vm = this;
         vm.userId = $routeParams["uid"].toString();
         //console.log(vm.userId);
@@ -46,14 +46,23 @@
 
         function createWebsite(userId, website) {
             //console.log(userId);
-            var promise = WebsiteService.createWebsite(userId, website);
-            promise
-                .success(function(data){
-                    $location.url("/user/"+ userId+"/website");
-                })
-                .error(function(){
+            if(website == undefined && !$scope.newWebsite.$invalid)
+                vm.alert = "Website name required";
+            else if (!website.name && !$scope.newWebsite.$invalid) {
+                vm.errClass = "errClass";
+                vm.errClassField = "errClassField";
+                vm.alert = "Website name required";
+            }
+            else {
+                var promise = WebsiteService.createWebsite(userId, website);
+                promise
+                    .success(function (data) {
+                        $location.url("/user/" + userId + "/website");
+                    })
+                    .error(function () {
 
-                });
+                    });
+            }
 
             // var id = (Math.floor(100000 + Math.random() * 900000)).toString();
             // id = id.substring(-2);
@@ -94,15 +103,21 @@
         init();
 
         function updateWebsite(websiteId, website) {
+            if(website == undefined)
+                vm.alert = "Website name required";
+            else if (!website.name) {
+                vm.alert = "Website name required";
+            }
+            else {
+                var promise = WebsiteService.updateWebsite(websiteId, website);
+                promise
+                    .success(function (data) {
+                        $location.url("/user/" + vm.userId + "/website");
+                    })
+                    .error(function () {
 
-            var promise = WebsiteService.updateWebsite(websiteId, website);
-            promise
-                .success(function(data){
-                   $location.url("/user/"+ vm.userId +"/website");
-                })
-                .error(function(){
-
-                });
+                    });
+            }
                 // WebsiteService.updateWebsite(vm.websiteId, vm.website);
                 // vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
                 // $location.url("/user/"+vm.userId+"/website");

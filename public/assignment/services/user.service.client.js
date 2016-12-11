@@ -17,15 +17,54 @@
         var api = {
             createUser   : createUser,
             findUserById : findUserById,
+            findCurrentUser: findCurrentUser,
             findUserByUsername : findUserByUsername,
             findUserByCredentials : findUserByCredentials,
             updateUser : updateUser,
-            deleteUser : deleteUser
+            deleteUser : deleteUser,
+            login:login,
+            logout:logout,
+            register:register,
+            checkLogin: checkLogin,
+            checkAdmin: checkAdmin
 
     };
         return api;
 
 
+        function findCurrentUser() {
+            var url = '/api/user/';
+            return $http.get(url);
+        }
+
+        function register(user) {
+            var url = '/api/register';
+            return $http.post(url,user);
+        }
+
+        function logout() {
+            return $http.post("/api/logout");
+        }
+
+        function checkLogin() {
+            return $http.post("/api/checkLogin");
+        }
+
+        function checkAdmin() {
+            return $http.post("/api/checkAdmin");
+        }
+
+        function login(username,password) {
+
+            var user ={
+                username:username,
+                password:password
+            }
+            //console.log(user);
+
+            //console.log("IN client service login"+user);
+            return $http.post('/api/login', user);
+        }
 
         function createUser(user) {
             //user.push(user);

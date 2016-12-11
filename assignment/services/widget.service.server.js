@@ -52,6 +52,15 @@ module.exports = function (app, model) {
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
     app.put("/api/page/:pid/widget",sortWidgets);
+    app.get("/api/flickrImage", selectPhoto);
+
+    function selectPhoto(photo) {
+        var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server;
+        url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
+        WidgetService
+            .updateWidget(websiteId, pageId, widgetId, {url: url})
+            .then();
+    }
 
 
 
@@ -152,6 +161,7 @@ module.exports = function (app, model) {
     function uploadImage(req, res) {
         var widgetId      = req.body.widgetId;
         var width         = req.body.width;
+        var text         = req.body.text;
         var myFile        = req.file;
         var userId        = req.body.userId;
         var websiteId     = req.body.websiteId;
@@ -166,7 +176,7 @@ module.exports = function (app, model) {
         var widget ={};
         widget["url"] = "/assignment/uploads/" + filename;
         widget["width"] = width;
-        //widget = widgetId;
+        widget["text"] = text;
         var pageId        = req.body.pageId;
         WidgetModel
             .updateWidget(widgetId, widget)

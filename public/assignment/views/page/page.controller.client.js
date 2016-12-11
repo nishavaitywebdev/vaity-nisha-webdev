@@ -38,14 +38,21 @@
         }
         init();
         function updatePage(pageId, page) {
-            var promise = PageService.updatePage(pageId, page);
-            promise
-                .success(function (data) {
-                    $location.url("/user/"+ vm.userId+"/website/"+ vm.websiteId+"/page");
+            if(page == undefined)
+                vm.alert = "Page name required";
+            else if (!page.name) {
+                vm.alert = "Page name required";
+            }
+            else {
+                var promise = PageService.updatePage(pageId, page);
+                promise
+                    .success(function (data) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
                     })
-                .error(function(){
+                    .error(function () {
 
-                });
+                    });
+            }
             //vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
         }
 
@@ -104,17 +111,23 @@
         init();
 
         function createPage(websiteId,page) {
+            if(page == undefined)
+                vm.alert = "Page name required";
+            else if (!page.name) {
+                vm.alert = "Page name required";
+            }
+            else {
+                var promise = PageService.createPage(websiteId, page);
+                promise
+                    .success(function (data) {
+                        if (data != '0') {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        }
+                    })
+                    .error(function () {
 
-            var promise = PageService.createPage(websiteId,page);
-            promise
-                .success(function(data){
-                    if(data != '0'){
-                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-                    }
-                })
-                .error(function(){
-
-                });
+                    });
+            }
 
             // var id = (Math.floor(100000 + Math.random() * 900000)).toString();
             // id = id.substring(-2);

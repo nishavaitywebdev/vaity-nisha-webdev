@@ -1,0 +1,53 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="row">
+            <a class=" navbar-text-decor" href="#">
+                HOTEL MANIA
+            </a>
+            <a href="#/login">
+                <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!---->
+    <div class="container-fluid padding-navbar">
+        <div class="row " ng-repeat="hotel in model.hotels_list" style="padding:0 15px;background: rgba(234, 234, 234, 0.13)">
+            <div class="col-lg-4" style="padding:10px">
+                <!--for image of hotel -->
+                <img src="{{hotel.hotel_data_node.img_selected.thumb.l}}" />
+            </div>
+            <div class="col-lg-8" style="padding:10px">
+                <!--for rating and Full name and other details {{hotel.hotel_data_node.name}}-->
+                <div>
+                    <h1><a href="#/hotelDetails/{{hotel.hotel_data_node._id}}">{{hotel.hotel_data_node.name}}</a></h1>
+                    <h3>{{hotel.hotel_data_node.loc.city}}</h3>
+                    <h3>{{hotel.hotel_data_node.loc.cnt_code}}</h3>
+                    <h3>{{hotel.hotel_data_node.loc.pin}}</h3>
+                    <p>Desc</p>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">-->
+            <!--<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">-->
+                <!--Previous-->
+            <!--</button>-->
+            <!--{{currentPage+1}}/{{hotels_length/pageSize}}-->
+            <!--<button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">-->
+                <!--Next-->
+            <!--</button>-->
+        <!--</div>-->
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <a href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
+            </a>
+        </div>
+    </div>
+</nav>

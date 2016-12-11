@@ -1,0 +1,70 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="row">
+            <a class=" navbar-text-decor" href="#">
+                HOTEL MANIA
+            </a>
+            <a href="#/login" class="">
+              <span class="glyphicon glyphicon-user white-glyphicon pull-right">
+              </span>
+            </a>
+        </div>
+    </div>
+    </div>
+</nav>
+<div id="home-sec" class="image">
+    <div class="container"  >
+        <div class="row text-center">
+            <div class="input-group">
+                <input ng-model="searchText" type="text" class="form-control" placeholder="Search Hotels by City">
+                <span class="input-group-btn">
+                    <!--ng-click="model.searchPhotos(searchText)" -->
+        <a href="#/hotel"
+                class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>Search Hotels
+        </a>
+    </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <br><hr>
+</div>
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-lg-4 col-xs-12" style="padding:10px">
+                <img src="../../project/assets/images/Boston1.jpg" height="80%" width="80%"/>
+            </div>
+            <div class="col-lg-4 col-xs-12 col-right" style="padding:10px">
+                <img src="../../project/assets/images/SanFrancisco.jpg" height="80%" width="80%"/>
+            </div>
+            <div class="col-lg-4 col-xs-12" style="padding:10px">
+
+                <img src="../../project/assets/images/Miami.jpg" height="80%" width="80%"/></div>
+            <div class="col-lg-4 col-xs-12 col-right" style="padding:10px">
+
+                <img src="../../project/assets/images/NewYork.jpg" height="80%" width="80%"/></div>
+            <div class="col-lg-4 col-xs-12" style="padding:10px"    >
+                <img src="../../project/assets/images/Washington.jpg" height="80%" width="80%"/>
+            </div>
+            <div class="col-lg-4 col-xs-12" style="padding:10px"    >
+                <img src="../../project/assets/images/Chicago.jpg" height="80%" width="80%"/>
+            </div>
+        </div>
+        <br><br>
+    </div>
+</div>
+
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <a href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user white-glyphicon pull-right"></span>
+            </a>
+        </div>
+    </div>
+</nav>
