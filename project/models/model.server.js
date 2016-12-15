@@ -3,8 +3,9 @@
  */
 module.exports = function () {
     var mongoose = require("mongoose");
-    mongoose.connect("mongodb://localhost/makeYouTour"); ///check
-    console.log("Inside model server js");
+    // mongoose.connect("mongodb://localhost/makeYouTour"); ///check
+    mongoose.connect("mongodb://nisha:nisha@ec2-35-165-104-34.us-west-2.compute.amazonaws.com:27017/dummyDB");
+    // console.log("Inside model server js");
     var userModel = require("./user/user.model.server")();
     // var websiteModel = require("./website/website.model.server")();
     // var pageModel = require("./page/page.model.server")();
